@@ -1,3 +1,5 @@
 {
-    "phoneNumber":"Phone Number"
+    "phoneNumber":"Phone Number",
+    "ar":"Arabic",
+    "en":"English"
 }
