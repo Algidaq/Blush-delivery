@@ -1,5 +1,9 @@
 {
     "phoneNumber":"Phone Number",
     "ar":"Arabic",
-    "en":"English"
+    "en":"English",
+    "login":"Login",
+    "pass":"Password",
+    "passHint":"Enter your password",
+    "invalidUser":"Invalid phone number or password"
 }

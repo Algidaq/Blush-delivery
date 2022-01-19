@@ -72,7 +72,11 @@ class AppButton extends StatelessWidget {
                     child: Center(
                       child: AppText.button(
                         text.toUpperCase(),
-                        color: disabled || _outlined ? kcPrimary : Colors.white,
+                        color: disabled
+                            ? Colors.grey[600]
+                            : _outlined
+                                ? kcPrimary
+                                : Colors.white,
                       ),
                     ),
                   )

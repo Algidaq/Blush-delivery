@@ -1,9 +1,8 @@
 import 'package:blush_delivery/app_bloc.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/repo/app_pref.dart';
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +16,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   var pref = await SharedPreferences.getInstance();
+
   runApp(MyApp(
     preferences: pref,
   ));
@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
             designSize: const Size(844.0, 390.0),
             builder: () => BlocBuilder<AppBloc, AppState>(
                   builder: (context, state) {
-                    return MaterialApp(
+                    return MaterialApp.router(
+                      routeInformationParser: kRouter.routeInformationParser,
+                      routerDelegate: kRouter.routerDelegate,
                       debugShowCheckedModeBanner: false,
                       supportedLocales: S.delegate.supportedLocales,
                       localizationsDelegates: const [
@@ -62,7 +64,6 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      home: Container(),
                     );
                   },
                 )),

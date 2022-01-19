@@ -61,7 +61,7 @@ class AppInput extends StatelessWidget {
             label ?? 'No Label',
             color: Colors.black,
           ),
-        if (label != null) verticalSpaceSmall,
+        if (label != null) verticalSpaceTiny,
         ReactiveTextField(
           formControlName: formControllerName,
           autocorrect: false,
@@ -75,7 +75,7 @@ class AppInput extends StatelessWidget {
           keyboardType: inputType,
           textInputAction: inputAction,
           maxLength: maxLength,
-          maxLines: maxLines,
+          maxLines: maxLines ?? 1,
           style: context.textTheme.bodyText1,
           textDirection: textDirection,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
