@@ -5,5 +5,8 @@
     "login":"Login",
     "pass":"Password",
     "passHint":"Enter your password",
-    "invalidUser":"Invalid phone number or password"
+    "invalidUser":"Invalid phone number or password",
+    "unavailableService":"Wer sorry service is currentlly unavailable",
+    "requestCancelled":"Your request to server got cancelled",
+    "networkError":"Check Your Network Connection"
 }

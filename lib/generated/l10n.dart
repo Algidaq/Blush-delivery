@@ -119,6 +119,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Wer sorry service is currentlly unavailable`
+  String get unavailableService {
+    return Intl.message(
+      'Wer sorry service is currentlly unavailable',
+      name: 'unavailableService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request to server got cancelled`
+  String get requestCancelled {
+    return Intl.message(
+      'Your request to server got cancelled',
+      name: 'requestCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Your Network Connection`
+  String get networkError {
+    return Intl.message(
+      'Check Your Network Connection',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

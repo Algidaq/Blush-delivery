@@ -27,8 +27,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "رقم الهاتف او كلمة المرور غير صحيحه"),
         "login": MessageLookupByLibrary.simpleMessage("تسيجيل الدخول"),
+        "networkError": MessageLookupByLibrary.simpleMessage(
+            "الرجاء التاكد من اتصالك؛ ب خددمة الانترنت"),
         "pass": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "passHint": MessageLookupByLibrary.simpleMessage("ادخل كلمة المرور"),
-        "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "requestCancelled": MessageLookupByLibrary.simpleMessage("تم إالغاء"),
+        "unavailableService":
+            MessageLookupByLibrary.simpleMessage("ناسف لعدم توفر الخدمة حالياً")
       };
 }
