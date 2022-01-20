@@ -15,7 +15,7 @@ class Report extends Equatable {
   Report.fromJson(Map<String, dynamic> json) {
     try {
       _date = json['date'];
-      _totalOrders = json['totalOrdders'];
+      _totalOrders = json['totalOrders'];
       _totalCash = json['totalCash'];
       _totalMbok = json['totalMbok'];
       _total = json['total'];
@@ -38,7 +38,8 @@ class Report extends Equatable {
   String get completedOrders => _completedOrders ?? '0';
   String get incompleteOrders => _incompletedOrders ?? '0';
   bool get isVerified => _isVerified ?? false;
-
+  num get progress =>
+      (int.parse(completedOrders) / int.parse(totalOrders)) * 100;
   @override
   List<Object?> get props => [date];
 }
