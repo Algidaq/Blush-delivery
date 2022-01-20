@@ -78,8 +78,8 @@ class _LoginViewState extends State<LoginView> {
                       hint: 'Enter your password',
                       password: state.hidePassword,
                       maxLength: 56,
-                      inputAction: TextInputAction.next,
-                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.done,
+                      // inputType: TextInputType.number,
                       // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       trailingIcon: GestureDetector(
                         onTap: () => _loginBloc.add(LoginTogglePassword()),
@@ -134,6 +134,7 @@ class _LoginViewState extends State<LoginView> {
     }
     if (state.state == StateEnum.success) {
       AppLogger.i('Route is ${state.route}');
+      Navigator.of(context).pushReplacementNamed(state.route!);
     }
   }
 }

@@ -5,7 +5,7 @@ class HttpService {
   String? _token;
   late final Dio dio;
   HttpService._() {
-    dio = Dio(BaseOptions(baseUrl: 'http://192.168.43.13/api'));
+    dio = Dio(BaseOptions(baseUrl: 'http://192.168.43.13:3001/api'));
     dio.interceptors.add(_BaseDioInterceptors());
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {

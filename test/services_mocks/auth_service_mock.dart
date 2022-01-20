@@ -10,6 +10,15 @@ class AuthServiceInvalidMock implements IAuthService {
     await Future.delayed(const Duration(seconds: 2));
     throw AppException('invalidLogin');
   }
+
+  @override
+  set user(User? user) {
+    // TODO: implement user
+  }
+
+  @override
+  // TODO: implement user
+  User? get user => throw UnimplementedError();
 }
 
 class AuthServiceValidMock implements IAuthService {
@@ -27,4 +36,13 @@ class AuthServiceValidMock implements IAuthService {
       },
     );
   }
+
+  @override
+  set user(User? user) {
+    // TODO: implement user
+  }
+
+  @override
+  // TODO: implement user
+  User? get user => throw UnimplementedError();
 }

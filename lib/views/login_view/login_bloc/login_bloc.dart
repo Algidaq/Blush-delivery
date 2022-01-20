@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:blush_delivery/extensions/exception_ext.dart';
-import 'package:blush_delivery/models/app_exception.dart';
-import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/services/auth_service/auth_service_req_model.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -49,7 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ExceptionMessageExt {
     try {
       emit(state.copyWith(state: StateEnum.busy));
       var user = await authService.login(reqmodel);
-      emit(state.copyWith(state: StateEnum.success, route: kLoginRoute));
+      emit(state.copyWith(state: StateEnum.success, route: '/main'));
     } catch (e) {
       addError(e);
     }
@@ -58,8 +56,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ExceptionMessageExt {
   @override
   void onError(Object error, StackTrace stackTrace) {
     reset();
-    // ignore: invalid_use_of_visible_for_testing_member
     String message = getErrorMessage(error);
+    // ignore: invalid_use_of_visible_for_testing_member
     emit(state.copyWith(state: StateEnum.error, errorMessage: message));
     AppLogger.e('LoginError:', error);
     super.onError(error, stackTrace);
@@ -70,7 +68,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ExceptionMessageExt {
   }
 
   AuthServiceReqModel get reqmodel =>
-      AuthServiceReqModel(phone: phone, password: password);
+      AuthServiceReqModel(phone: '0' + phone, password: password);
 
   AbstractControl get phoneCont => formGroup.control(phoneContName);
   AbstractControl get passCont => formGroup.control(passContName);
