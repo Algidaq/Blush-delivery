@@ -65,4 +65,6 @@ class AppBloc extends Bloc<AppEvents, AppState> {
   void onLangChange(String? value) {
     add(AppLangChange(Locale(value ?? 'en')));
   }
+
+  bool get isArabic => state.locale.languageCode == 'ar';
 }

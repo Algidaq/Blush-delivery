@@ -79,6 +79,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get pass {
+    return Intl.message(
+      'Password',
+      name: 'pass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get passHint {
+    return Intl.message(
+      'Enter your password',
+      name: 'passHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid phone number or password`
+  String get invalidUser {
+    return Intl.message(
+      'Invalid phone number or password',
+      name: 'invalidUser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wer sorry service is currentlly unavailable`
+  String get unavailableService {
+    return Intl.message(
+      'Wer sorry service is currentlly unavailable',
+      name: 'unavailableService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request to server got cancelled`
+  String get requestCancelled {
+    return Intl.message(
+      'Your request to server got cancelled',
+      name: 'requestCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Your Network Connection`
+  String get networkError {
+    return Intl.message(
+      'Check Your Network Connection',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

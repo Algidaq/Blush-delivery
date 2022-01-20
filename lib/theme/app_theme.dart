@@ -24,6 +24,11 @@ final kLightThemeData = ThemeData(
     primaryColor: kcPrimary,
     primaryColorDark: kcPrimary,
     primaryColorLight: kcPrimaryLight,
+    // pageTransitionsTheme: const PageTransitionsTheme(
+    //     builders: <TargetPlatform, PageTransitionsBuilder>{
+    //       TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    //       TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+    //     }),
     colorScheme: ColorScheme.fromSwatch(
       errorColor: Colors.red,
       backgroundColor: kcGrayLight,

@@ -1,9 +1,9 @@
 import 'package:blush_delivery/app_bloc.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/repo/app_pref.dart';
+import 'package:blush_delivery/routes/app_router.dart';
+import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,11 +12,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'models/user.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   var pref = await SharedPreferences.getInstance();
+
   runApp(MyApp(
     preferences: pref,
   ));
@@ -28,11 +31,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final router = AppRouter();
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AppPref>(
           lazy: false,
           create: (ctx) => AppPref(preferences),
+        ),
+        RepositoryProvider<AuthService>(create: (context) => AuthService()),
+        RepositoryProvider<User>(
+          create: (context) =>
+              RepositoryProvider.of<AuthService>(context).user!,
         )
       ],
       child: MultiBlocProvider(
@@ -62,7 +71,10 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      home: Container(),
+                      onGenerateRoute: router.onGenerateRoute,
+                      initialRoute: kLoginRoute,
+                      navigatorObservers: [AppRouterObserver()],
+                      // onGenerateInitialRoutes: router.onGenerateInitialRoute,
                     );
                   },
                 )),
