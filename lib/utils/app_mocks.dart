@@ -194,7 +194,7 @@ class DriverReportSerivceMock implements IDriverReportService {
   Future<DriverReportResModel> getDriverReports(
       {DriverReportReqModel? queryParams}) async {
     AppLogger.i('loadding Data from Mock $queryParams');
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 2));
     var headers = Headers();
     var mocks = [];
     if (queryParams != null && queryParams.page > 2) {

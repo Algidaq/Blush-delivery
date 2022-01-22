@@ -23,7 +23,8 @@ class _ReportsViewState extends State<ReportsView> {
   late final ScrollController _controller;
   @override
   void initState() {
-    reportBloc = ReportBloc(reportService: DriverReportService());
+    reportBloc = ReportBloc(reportService: DriverReportService())
+      ..add(ReloadReports());
     _controller = ScrollController();
     _controller.addListener(handleScroll);
     super.initState();
@@ -52,7 +53,8 @@ class _ReportsViewState extends State<ReportsView> {
               slivers: [
                 if (state.viewState == StateEnum.busy)
                   const ReportsListLoading(),
-                if (state.viewState == StateEnum.error)
+                if (state.viewState == StateEnum.error &&
+                    state.reportResModel == null)
                   SliverCenter(
                       padding: const EdgeInsets.all(16.0),
                       child: TextWithButton(

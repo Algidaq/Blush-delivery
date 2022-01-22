@@ -25,9 +25,7 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 class ReportBloc extends Bloc<ReportEvent, ReportState>
     with ExceptionMessageExt {
   final IDriverReportService reportService;
-  ReportBloc({required this.reportService})
-      : super(const ReportState(
-            viewState: StateEnum.error, message: 'An error Occured')) {
+  ReportBloc({required this.reportService}) : super(const ReportState()) {
     on<ReloadReports>(handleReloadReports);
     on<LoadReports>(handleLoadReports,
         transformer: throttleDroppable(throttleDuration));
