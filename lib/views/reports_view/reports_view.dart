@@ -2,11 +2,10 @@ import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
-import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
+import 'package:blush_delivery/views/reports_view/widgets/reports_list_loading.dart';
 import 'package:blush_delivery/widgets/report_list_tile.dart';
-import 'package:blush_delivery/widgets/report_loading_list_tile.dart';
 import 'package:blush_delivery/widgets/sliver_center.dart';
 import 'package:blush_delivery/widgets/text_with_button.dart';
 import 'package:flutter/material.dart';
@@ -130,38 +129,5 @@ class _ReportsViewState extends State<ReportsView> {
     final maxScroll = _controller.position.maxScrollExtent;
     final currentScroll = _controller.offset;
     return currentScroll >= (maxScroll * 0.9);
-  }
-}
-
-class ReportsHeader extends StatelessWidget {
-  const ReportsHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SliverAppBar(
-      elevation: 0.0,
-      title: AppText.title(
-        'Reports',
-        color: Colors.white,
-      ),
-    );
-  }
-}
-
-class ReportsListLoading extends StatelessWidget {
-  const ReportsListLoading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: kListViewPadding,
-      sliver: SliverList(
-          delegate: SliverChildListDelegate.fixed(List.generate(
-              10,
-              (index) => const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                    child: ReportLoadingListTile(),
-                  )))),
-    );
   }
 }
