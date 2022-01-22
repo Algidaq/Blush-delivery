@@ -23,7 +23,8 @@ class ReportState extends Equatable {
           viewState: viewState ?? this.viewState,
           reportResModel: reportResModel ?? this.reportResModel,
           message: message ?? this.message,
-          currentPage: currentPage ?? this.currentPage);
+          currentPage: currentPage ?? this.currentPage,
+          hasReachedLimit: hasReachedLimit ?? this.hasReachedLimit);
   @override
   List<Object?> get props => [
         viewState,
@@ -31,6 +32,5 @@ class ReportState extends Equatable {
         message,
         hasReachedLimit,
         currentPage,
-        hasReachedLimit
       ];
 }

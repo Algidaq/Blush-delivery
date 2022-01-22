@@ -1,36 +1,49 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:blush_delivery/extensions/exception_ext.dart';
-import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
-
+import 'package:stream_transform/stream_transform.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
 
 part 'report_state.dart';
 part 'report_event.dart';
 
+const throttleDuration = Duration(milliseconds: 100);
+
+EventTransformer<E> throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
+
 class ReportBloc extends Bloc<ReportEvent, ReportState>
     with ExceptionMessageExt {
   final IDriverReportService reportService;
-  ReportBloc({required this.reportService}) : super(const ReportState()) {
+  ReportBloc({required this.reportService})
+      : super(const ReportState(
+            viewState: StateEnum.error, message: 'An error Occured')) {
     on<ReloadReports>(handleReloadReports);
-    on<LoadReports>(handleLoadReports);
+    on<LoadReports>(handleLoadReports,
+        transformer: throttleDroppable(throttleDuration));
   }
 
   FutureOr<void> handleReloadReports(
       ReloadReports event, Emitter<ReportState> emit) async {
     try {
+      emit(state.copyWith(viewState: StateEnum.busy));
       var queryParams = getQueryParams(1);
       var res = await reportService.getDriverReports(queryParams: queryParams);
       emit(state.copyWith(
         viewState: StateEnum.success,
         reportResModel: res,
         hasReachedLimit: res.totalPages == queryParams.page,
+        currentPage: queryParams.page,
       ));
     } catch (e) {
       addError(e);
@@ -45,12 +58,19 @@ class ReportBloc extends Bloc<ReportEvent, ReportState>
       }
       var queryParams = getQueryParams(state.currentPage + 1);
       var res = await reportService.getDriverReports(queryParams: queryParams);
-      emit(state.copyWith(
-        viewState: StateEnum.success,
-        currentPage: queryParams.page,
-        hasReachedLimit: res.reports.isEmpty,
-        reportResModel: res,
-      ));
+      AppLogger.d('onreloadd $res');
+      if (res.reports.isEmpty) {
+        AppLogger.d('isEmpty');
+        emit(state.copyWith(hasReachedLimit: res.reports.isEmpty));
+      } else {
+        res.reports.insertAll(0, state.reportResModel?.reports ?? []);
+        emit(state.copyWith(
+          viewState: StateEnum.success,
+          currentPage: queryParams.page,
+          // hasReachedLimit: hasReachedLimit,
+          reportResModel: res,
+        ));
+      }
     } catch (e) {
       addError(e);
     }

@@ -3,7 +3,6 @@ import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/models/report.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class ReportListTile extends StatelessWidget {
@@ -77,7 +76,7 @@ class _ReportProgress extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.center,
-              child: AppText.body(
+              child: AppText.body2(
                 progress.toInt().toString() + '%',
               ),
             ),

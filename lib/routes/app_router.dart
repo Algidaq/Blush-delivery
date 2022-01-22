@@ -3,6 +3,7 @@ import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/views/login_view/login_bloc/login_bloc.dart';
 import 'package:blush_delivery/views/login_view/login_view.dart';
+import 'package:blush_delivery/views/reports_view/reports_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,8 @@ class AppRouter {
           ),
           // settings: settings,
         );
+      case kReportsView:
+        return MaterialPageRoute(builder: (_) => const ReportsView());
       case kMainRoute:
         return MaterialPageRoute(
           builder: (ctx) => Container(

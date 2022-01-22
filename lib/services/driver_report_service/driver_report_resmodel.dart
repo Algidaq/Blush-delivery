@@ -25,5 +25,5 @@ class DriverReportResModel extends Equatable {
   int get count => int.tryParse(_count ?? '1') ?? 10;
 
   @override
-  List<Object?> get props => [reports];
+  List<Object?> get props => [reports.length];
 }

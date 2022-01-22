@@ -10,6 +10,7 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final double width;
   final Widget? leading;
+  final bool _text;
   const AppButton(this.text,
       {Key? key,
       this.onTap,
@@ -18,6 +19,7 @@ class AppButton extends StatelessWidget {
       this.width = double.maxFinite,
       this.leading})
       : _outlined = false,
+        _text = false,
         super(key: key);
   const AppButton.outlined(this.text,
       {Key? key,
@@ -27,6 +29,18 @@ class AppButton extends StatelessWidget {
       this.width = double.maxFinite,
       this.leading})
       : _outlined = true,
+        _text = false,
+        super(key: key);
+
+  const AppButton.text(this.text,
+      {Key? key,
+      this.onTap,
+      this.busy = false,
+      this.disabled = false,
+      this.width = double.maxFinite,
+      this.leading})
+      : _text = true,
+        _outlined = false,
         super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -74,7 +88,7 @@ class AppButton extends StatelessWidget {
                         text.toUpperCase(),
                         color: disabled
                             ? Colors.grey[600]
-                            : _outlined
+                            : _outlined || _text
                                 ? kcPrimary
                                 : Colors.white,
                       ),
@@ -89,6 +103,9 @@ class AppButton extends StatelessWidget {
   }
 
   Color get backgroundColor {
+    if (_text) {
+      return Colors.transparent;
+    }
     if (disabled || busy) {
       return Colors.grey[200]!;
     } else {
