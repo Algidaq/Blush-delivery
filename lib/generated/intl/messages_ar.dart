@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pass": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "passHint": MessageLookupByLibrary.simpleMessage("ادخل كلمة المرور"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "reload": MessageLookupByLibrary.simpleMessage("إعادة الحميل"),
+        "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
         "requestCancelled": MessageLookupByLibrary.simpleMessage("تم إالغاء"),
         "unavailableService":
             MessageLookupByLibrary.simpleMessage("ناسف لعدم توفر الخدمة حالياً")

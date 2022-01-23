@@ -1,5 +1,6 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
@@ -34,7 +35,7 @@ class _ReportsViewState extends State<ReportsView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const AppText.title('Reports', color: Colors.white),
+          title: AppText.title(S.of(context).reports, color: Colors.white),
         ),
         backgroundColor: kcGrayDark,
         body: RefreshIndicator(
@@ -59,7 +60,7 @@ class _ReportsViewState extends State<ReportsView> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextWithButton(
                         text: state.message,
-                        buttonText: 'Reload',
+                        buttonText: S.of(context).reload,
                         onTap: handleRefresh,
                       )),
                 if (state.viewState == StateEnum.success)
