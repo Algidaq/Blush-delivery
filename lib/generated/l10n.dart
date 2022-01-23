@@ -169,6 +169,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Cash`
+  String get cash {
+    return Intl.message(
+      'Cash',
+      name: 'cash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mbok`
+  String get mbok {
+    return Intl.message(
+      'Mbok',
+      name: 'mbok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash & Mbok`
+  String get cashAndMbok {
+    return Intl.message(
+      'Cash & Mbok',
+      name: 'cashAndMbok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unpaid`
+  String get unpaid {
+    return Intl.message(
+      'Unpaid',
+      name: 'unpaid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -23,10 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "cash": MessageLookupByLibrary.simpleMessage("Cash"),
+        "cashAndMbok": MessageLookupByLibrary.simpleMessage("Cash & Mbok"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "Invalid phone number or password"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "mbok": MessageLookupByLibrary.simpleMessage("Mbok"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "Check Your Network Connection"),
         "pass": MessageLookupByLibrary.simpleMessage("Password"),
@@ -37,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "requestCancelled": MessageLookupByLibrary.simpleMessage(
             "Your request to server got cancelled"),
         "unavailableService": MessageLookupByLibrary.simpleMessage(
-            "Wer sorry service is currentlly unavailable")
+            "Wer sorry service is currentlly unavailable"),
+        "unpaid": MessageLookupByLibrary.simpleMessage("Unpaid")
       };
 }

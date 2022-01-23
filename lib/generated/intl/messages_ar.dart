@@ -23,10 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ar": MessageLookupByLibrary.simpleMessage("عربي"),
+        "cash": MessageLookupByLibrary.simpleMessage("نقداً"),
+        "cashAndMbok": MessageLookupByLibrary.simpleMessage("نقداً و بنكك"),
         "en": MessageLookupByLibrary.simpleMessage("انجليزي"),
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "رقم الهاتف او كلمة المرور غير صحيحه"),
         "login": MessageLookupByLibrary.simpleMessage("تسيجيل الدخول"),
+        "mbok": MessageLookupByLibrary.simpleMessage("بنكك"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "الرجاء التاكد من اتصالك؛ ب خددمة الانترنت"),
         "pass": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -35,7 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reload": MessageLookupByLibrary.simpleMessage("إعادة الحميل"),
         "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
         "requestCancelled": MessageLookupByLibrary.simpleMessage("تم إالغاء"),
-        "unavailableService":
-            MessageLookupByLibrary.simpleMessage("ناسف لعدم توفر الخدمة حالياً")
+        "unavailableService": MessageLookupByLibrary.simpleMessage(
+            "ناسف لعدم توفر الخدمة حالياً"),
+        "unpaid": MessageLookupByLibrary.simpleMessage("لم يم الدفع")
       };
 }

@@ -10,5 +10,9 @@
     "requestCancelled":"Your request to server got cancelled",
     "networkError":"Check Your Network Connection",
     "reload":"Reload",
-    "reports":"Reports"
+    "reports":"Reports",
+    "cash":"Cash",
+    "mbok":"Mbok",
+    "cashAndMbok":"Cash & Mbok",
+    "unpaid": "Unpaid"
 }
