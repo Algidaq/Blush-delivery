@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:blush_delivery/extensions/exception_ext.dart';
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/services/auth_service/auth_service_req_model.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -47,7 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ExceptionMessageExt {
     try {
       emit(state.copyWith(state: StateEnum.busy));
       var user = await authService.login(reqmodel);
-      emit(state.copyWith(state: StateEnum.success, route: '/main'));
+      emit(state.copyWith(state: StateEnum.success, route: kReportsView));
     } catch (e) {
       addError(e);
     }

@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pass": MessageLookupByLibrary.simpleMessage("Password"),
         "passHint": MessageLookupByLibrary.simpleMessage("Enter your password"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "reload": MessageLookupByLibrary.simpleMessage("Reload"),
+        "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "requestCancelled": MessageLookupByLibrary.simpleMessage(
             "Your request to server got cancelled"),
         "unavailableService": MessageLookupByLibrary.simpleMessage(

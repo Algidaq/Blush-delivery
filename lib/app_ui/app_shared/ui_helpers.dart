@@ -18,6 +18,8 @@ final Widget verticalSpaceSemiLarge = SizedBox(height: 32.0.h);
 final Widget verticalSpaceLarge = SizedBox(height: 48.0.h);
 
 final Widget verticalSpaceXLarge = SizedBox(height: 64.0.h);
+final EdgeInsets kListViewPadding =
+    EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h);
 
 const BorderRadius kBorderRadiusMid = BorderRadius.all(Radius.circular(12.0));
 const BorderRadius kBorderRadiusSemiLarge =

@@ -12,7 +12,7 @@ final kTitleStyle = GoogleFonts.openSans(
 
 final kSubtitleStyle = GoogleFonts.openSans(
   fontSize: 16,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w500,
   letterSpacing: 0.15,
 );
 
@@ -27,6 +27,8 @@ final kBodyStyle = GoogleFonts.openSans(
   fontWeight: FontWeight.w400,
   letterSpacing: 0.5,
 );
+final kBody2Style = GoogleFonts.openSans(
+    fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25);
 
 final kButtonStyle = GoogleFonts.openSans(
   fontSize: 13,

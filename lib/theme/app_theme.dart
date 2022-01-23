@@ -12,8 +12,8 @@ final kTextTheme = TextTheme(
   subtitle1: kSubtitleStyle,
   subtitle2: kSubtitle2Style,
   bodyText1: kBodyStyle,
-  bodyText2: kBodyStyle,
-  button: kBodyStyle,
+  bodyText2: kBody2Style,
+  button: kButtonStyle,
   caption: kCaptionStyle,
   overline: kOverlineStyle,
 );

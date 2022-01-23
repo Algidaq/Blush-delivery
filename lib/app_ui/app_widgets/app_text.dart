@@ -27,6 +27,10 @@ class AppText extends StatelessWidget {
       {Key? key, this.color, this.align, this.decoration})
       : _style = _TextStyle.body,
         super(key: key);
+  const AppText.body2(this.data,
+      {Key? key, this.color, this.align, this.decoration})
+      : _style = _TextStyle.body2,
+        super(key: key);
   const AppText.button(this.data,
       {Key? key, this.color, this.align, this.decoration})
       : _style = _TextStyle.button,
@@ -76,6 +80,11 @@ class AppText extends StatelessWidget {
           color: color,
           decoration: decoration,
         );
+      case _TextStyle.body2:
+        return context.textTheme.bodyText2?.copyWith(
+          color: color,
+          decoration: decoration,
+        );
       case _TextStyle.button:
         return context.textTheme.button?.copyWith(
           color: color,
@@ -99,6 +108,7 @@ enum _TextStyle {
   subtitle,
   subtitle2,
   body,
+  body2,
   button,
   caption,
   overline
