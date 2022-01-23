@@ -1,8 +1,13 @@
 import 'package:blush_delivery/enums/payment_method.dart';
+
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:blush_delivery/utils/utils.dart';
+part 'billing.dart';
+part 'product.dart';
+part 'note.dart';
+part 'receipt.dart';
 
 class Order extends Equatable {
   late final String? _id;
@@ -17,7 +22,10 @@ class Order extends Equatable {
   late final num? _mbok;
   late final int? _paymentMethod;
   late final bool? _isVerified;
-
+  late final Billing billing;
+  final List<Product> products = [];
+  final List<Note> notes = [];
+  late final Receipt receipt;
   Order.fromJson(Map<String, dynamic> json) {
     try {
       _id = json['id'];
@@ -32,6 +40,14 @@ class Order extends Equatable {
       _mbok = json['mbok'];
       _paymentMethod = json['paymentMethod'];
       _isVerified = json['isVerified'];
+      var billingJson = json['billing'] ?? <String, dynamic>{};
+      billing = Billing.fromJson(billingJson);
+      List<dynamic> productsJson = json['lineItems'] ?? [];
+      products.addAll(
+          productsJson.map((productJson) => Product.fromJson(productJson)));
+      List<dynamic> notesJson = json['notes'] ?? [];
+      notes.addAll(notesJson.map((noteJson) => Note.fromJson(noteJson)));
+      receipt = Receipt.fromJson(json['receipt'] ?? <String, dynamic>{});
     } catch (e) {
       AppLogger.e(Order, e);
       rethrow;
