@@ -11,12 +11,14 @@ class OrderListTile extends StatelessWidget {
   final TapReportCallBack? onTap;
   final TapReportCallBack? onLongPressed;
   final TapReportCallBack? onEdit;
+  final TapReportCallBack? onCall;
   const OrderListTile(
       {Key? key,
       required this.order,
       this.onTap,
       this.onLongPressed,
-      this.onEdit})
+      this.onEdit,
+      this.onCall})
       : super(key: key);
 
   void handleOnLongPressed() => onLongPressed?.call(order);
@@ -25,13 +27,21 @@ class OrderListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      enabled: !order.isCompleted,
       startActionPane: ActionPane(motion: const BehindMotion(), children: [
         SlidableAction(
           onPressed: order.isCompleted ? null : (_) => onEdit?.call(order),
           label: S.of(context).edit,
           icon: Icons.edit,
+          backgroundColor: kcAccentLight,
+          foregroundColor: Colors.black,
+        ),
+        SlidableAction(
+          onPressed: order.isCompleted ? null : (_) => onCall?.call(order),
+          label: S.of(context).call,
+          icon: Icons.call,
           backgroundColor: kcPrimary,
-        )
+        ),
       ]),
       child: ListTile(
         tileColor: Colors.white,
@@ -47,7 +57,8 @@ class OrderListTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             AppText.caption(order.createDate),
-            AppText.body2(order.formatedOrder + ' ' + order.billing.fullName),
+            AppText.subtitle(
+                order.formatedOrder + ' ' + order.billing.fullName),
           ],
         ),
         // isThreeLine: true,

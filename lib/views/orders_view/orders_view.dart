@@ -6,10 +6,14 @@ import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_list_loading.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
+import 'package:blush_delivery/widgets/report_progress.dart';
 import 'package:blush_delivery/widgets/state_switch.dart';
 import 'package:blush_delivery/widgets/text_with_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/order_view_header.dart';
 
 class OrdersView extends StatefulWidget {
   final Report report;
@@ -39,19 +43,23 @@ class _OrdersViewState extends State<OrdersView> {
       backgroundColor: kcGrayLight,
       body: RefreshIndicator(
         onRefresh: handleRefresh,
+        color: kcPrimary,
+        displacement: 0.0,
         child: BlocBuilder<OrdersBloc, OrdersState>(
           builder: (_, state) => StateSwitch(
             viewState: state.viewState,
             busy: const OrdersListLoading(),
-            success: ListView.separated(
+            success: ReorderableListView.builder(
+              header: OrderViewHeader(report: bloc.report),
               itemBuilder: (__, index) => OrderListTile(
+                key: ValueKey<int>(index),
                 order: state.orders[index],
                 onEdit: handleOrderEdit,
+                // onLongPressed: handleOrderLongPress,
                 onTap: handleOrderTap,
-                onLongPressed: handleOrderLongPress,
               ),
-              separatorBuilder: (__, index) => kListTileDivider,
               itemCount: state.orders.length,
+              onReorder: handleReorder,
             ),
             error: SingleChildScrollView(
               child: Center(
@@ -83,4 +91,8 @@ class _OrdersViewState extends State<OrdersView> {
   void handleOrderTap(Order order) {}
 
   void handleOrderEdit(Order order) {}
+
+  void handleReorder(int oldIndex, int newIndex) {
+    bloc.add(ReorderOrder(oldIndex, newIndex));
+  }
 }

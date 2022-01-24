@@ -5,6 +5,7 @@ import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
 import 'package:blush_delivery/interfaces/i_report_orders_service.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
+import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
   OrdersBloc({required this.orderService, required this.report})
       : super(const OrdersState()) {
     on<FetchOrders>(handleFetchOrders);
+    on<ReorderOrder>(handleReorderOrder);
   }
 
   FutureOr<void> handleFetchOrders(
@@ -31,5 +33,18 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
       String message = getErrorMessage(e);
       emit(state.copyWith(viewState: StateEnum.error, message: message));
     }
+  }
+
+  FutureOr<void> handleReorderOrder(
+      ReorderOrder event, Emitter<OrdersState> emit) {
+    AppLogger.i('${event.oldIndex} ${event.newIndex}');
+    var data = state.orders[event.oldIndex];
+    var orders = [...state.orders];
+    orders.removeAt(event.oldIndex);
+    var newIndex = event.newIndex == state.orders.length
+        ? event.newIndex - 1
+        : event.newIndex;
+    orders.insert(newIndex, data);
+    emit(state.copyWith(orders: orders));
   }
 }
