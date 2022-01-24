@@ -1,10 +1,17 @@
 import 'package:blush_delivery/app_bloc.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/generated/l10n.dart';
+import 'package:blush_delivery/models/order/order.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/repo/app_pref.dart';
 import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/theme/app_theme.dart';
+import 'package:blush_delivery/utils/app_mocks.dart';
+import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
+import 'package:blush_delivery/widgets/order_list_tile.dart/order_loading_list_tile.dart';
+import 'package:blush_delivery/widgets/report_list_tile.dart';
+import 'package:blush_delivery/widgets/report_loading_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,6 +82,20 @@ class MyApp extends StatelessWidget {
                       initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
+                      // home: Scaffold(
+                      //   appBar: AppBar(),
+                      //   backgroundColor: kcGrayDark,
+                      //   body: ListView(
+                      //     // padding: kListViewPadding,
+                      //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      //     children: [
+                      //       OrderListTile(
+                      //         order: Order.fromJson(AppMocks.kOrderMock),
+                      //       ),
+                      //       const OrderLoadingListTile(),
+                      //     ],
+                      //   ),
+                      // ),
                     );
                   },
                 )),

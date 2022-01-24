@@ -13,8 +13,8 @@ class ReportListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding:
-          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-      shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusSemiLarge),
+          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      // shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusSemiLarge),
       style: ListTileStyle.list,
       onTap: () {},
       enableFeedback: false,
@@ -48,12 +48,7 @@ class ReportListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          AppText.body(NumberFormat('#,###.#').format(report.total)),
-          const Icon(
-            CupertinoIcons.money_dollar,
-            color: kcAccentMed,
-            size: 16.0,
-          ),
+          AppText.body(NumberFormat('#,###.#').format(report.total) + ' SDG'),
         ],
       ),
     );

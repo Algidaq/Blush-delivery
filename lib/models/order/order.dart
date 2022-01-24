@@ -120,6 +120,8 @@ class Order extends Equatable {
     return NumberFormat('#,###').format(number);
   }
 
+  bool get isCompleted => orderStatus == 'completed';
+
   @override
   List<Object?> get props => [id];
 }

@@ -51,6 +51,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   bloc_concurrency: ^0.2.0
   stream_transform: ^2.0.0
+  flutter_slidable: ^1.2.0
   # auto_route: ^3.2.1
 
 dev_dependencies:

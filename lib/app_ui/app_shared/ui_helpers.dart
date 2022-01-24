@@ -21,6 +21,8 @@ final Widget verticalSpaceXLarge = SizedBox(height: 64.0.h);
 final EdgeInsets kListViewPadding =
     EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h);
 
+const BorderRadius kBorderRadiusTiny = BorderRadius.all(Radius.circular(4.0));
+
 const BorderRadius kBorderRadiusMid = BorderRadius.all(Radius.circular(12.0));
 const BorderRadius kBorderRadiusSemiLarge =
     BorderRadius.all(Radius.circular(16.0));

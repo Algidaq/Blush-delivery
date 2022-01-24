@@ -3,6 +3,7 @@ import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/views/reports_view/widgets/reports_list_loading.dart';
@@ -37,7 +38,7 @@ class _ReportsViewState extends State<ReportsView> {
         appBar: AppBar(
           title: AppText.title(S.of(context).reports, color: Colors.white),
         ),
-        backgroundColor: kcGrayDark,
+        backgroundColor: kcGrayLight,
         body: RefreshIndicator(
           onRefresh: handleRefresh,
           // backgroundColor: kcAccentDark,
@@ -46,59 +47,63 @@ class _ReportsViewState extends State<ReportsView> {
           // edgeOffset: ,
           color: kcPrimary,
           child: BlocConsumer<ReportBloc, ReportState>(
-            bloc: reportBloc,
-            listener: handleNavigation,
-            // buildWhen: (prev,curr)=> prev.reportResModel,
-            builder: (context, state) => CustomScrollView(
-              controller: _controller,
-              slivers: [
-                if (state.viewState == StateEnum.busy)
-                  const ReportsListLoading(),
-                if (state.viewState == StateEnum.error &&
-                    state.reportResModel == null)
-                  SliverCenter(
-                      padding: const EdgeInsets.all(16.0),
+              bloc: reportBloc,
+              listener: handleNavigation,
+              // buildWhen: (prev,curr)=> prev.reportResModel,
+              builder: (context, state) {
+                switch (state.viewState) {
+                  case StateEnum.idel:
+                    return const ReportsListLoading();
+                  case StateEnum.busy:
+                    return const ReportsListLoading();
+                  case StateEnum.error:
+                    return Center(
                       child: TextWithButton(
                         text: state.message,
                         buttonText: S.of(context).reload,
                         onTap: handleRefresh,
-                      )),
-                if (state.viewState == StateEnum.success)
-                  SliverPadding(
-                    padding: kListViewPadding,
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (ctx, index) => index >=
+                      ),
+                    );
+                  case StateEnum.success:
+                    return ListView.separated(
+                        controller: _controller,
+                        padding: const EdgeInsets.only(top: 8.0),
+                        itemBuilder: (ctx, index) => index >=
                                 state.reportResModel!.reports.length
-                            ? state.hasReachedLimit
+                            ? state.hasReachedLimit ||
+                                    state.reportResModel!.reports.length < 10
                                 ? const SizedBox(
                                     height: 24.0,
                                     width: 24.0,
                                   )
                                 : const Center(
-                                    child: SizedBox(
-                                      height: 24.0,
-                                      width: 24.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation(kcPrimary),
-                                        strokeWidth: 2.0,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: SizedBox(
+                                        height: 24.0,
+                                        width: 24.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation(kcPrimary),
+                                          strokeWidth: 2.0,
+                                        ),
                                       ),
                                     ),
                                   )
-                            : Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ReportListTile(
-                                    report:
-                                        state.reportResModel!.reports[index]),
-                              ),
-                        childCount: state.reportResModel!.reports.length + 1,
-                      ),
-                    ),
-                  )
-              ],
-            ),
-          ),
+                            : ReportListTile(
+                                report: state.reportResModel!.reports[index]),
+                        separatorBuilder: (ctx, index) => Divider(
+                              color: Colors.grey[350],
+                              indent: 16.0,
+                              endIndent: 16.0,
+                              height: 0.5,
+                            ),
+                        itemCount: state.reportResModel!.reports.length + 1);
+
+                  default:
+                    return const ReportsListLoading();
+                }
+              }),
         ));
   }
 
@@ -134,3 +139,53 @@ class _ReportsViewState extends State<ReportsView> {
     return currentScroll >= (maxScroll * 0.9);
   }
 }
+
+// // CustomScrollView(
+// //               controller: _controller,
+// //               slivers: [
+// //                 if (state.viewState == StateEnum.busy)
+// //                   const ReportsListLoading(),
+// //                 if (state.viewState == StateEnum.error &&
+// //                     state.reportResModel == null)
+// //                   SliverCenter(
+//                       // padding: const EdgeInsets.all(16.0),
+//                       // child: TextWithButton(
+//                       //   text: state.message,
+//                       //   buttonText: S.of(context).reload,
+//                       //   onTap: handleRefresh,
+//                       // )),
+// //                 if (state.viewState == StateEnum.success)
+// //                   SliverPadding(
+// //                     padding: kListViewPadding,
+// //                     sliver: SliverList(
+// //                       delegate: SliverChildBuilderDelegate(
+//                         (ctx, index) => index >=
+//                                 state.reportResModel!.reports.length
+//                             ? state.hasReachedLimit
+//                                 ? const SizedBox(
+//                                     height: 24.0,
+//                                     width: 24.0,
+//                                   )
+//                                 : const Center(
+//                                     child: SizedBox(
+//                                       height: 24.0,
+//                                       width: 24.0,
+//                                       child: CircularProgressIndicator(
+//                                         valueColor:
+//                                             AlwaysStoppedAnimation(kcPrimary),
+//                                         strokeWidth: 2.0,
+//                                       ),
+//                                     ),
+//                                   )
+//                             : Padding(
+//                                 padding: const EdgeInsets.only(bottom: 8.0),
+//                                 child: ReportListTile(
+//                                     report:
+//                                         state.reportResModel!.reports[index]),
+//                               ),
+//                         childCount: state.reportResModel!.reports.length + 1,
+// //                       ),
+// //                     ),
+// //                   )
+// //               ],
+// //             ),

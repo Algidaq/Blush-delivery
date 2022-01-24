@@ -1,5 +1,5 @@
 import 'package:blush_delivery/enums/payment_method.dart';
-import 'package:blush_delivery/models/product/order.dart';
+import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
