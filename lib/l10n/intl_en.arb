@@ -14,5 +14,6 @@
     "cash":"Cash",
     "mbok":"Mbok",
     "cashAndMbok":"Cash & Mbok",
-    "unpaid": "Unpaid"
+    "unpaid": "Unpaid",
+    "edit":"Edit"
 }

@@ -11,9 +11,10 @@ abstract class BaseService {
         .post(path, data: reqmodel.toJson(), queryParameters: queryParams);
   }
 
-  Future<Response<dynamic>> get({Map<String, dynamic>? queryParams}) {
+  Future<Response<dynamic>> get(
+      {String params = '', Map<String, dynamic>? queryParams}) {
     return _httpService.dio.get(
-      path,
+      path + params,
       queryParameters: queryParams,
     );
   }

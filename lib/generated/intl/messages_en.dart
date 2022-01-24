@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
         "cash": MessageLookupByLibrary.simpleMessage("Cash"),
         "cashAndMbok": MessageLookupByLibrary.simpleMessage("Cash & Mbok"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "Invalid phone number or password"),
