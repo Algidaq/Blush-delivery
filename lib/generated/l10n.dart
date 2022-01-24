@@ -219,6 +219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No Orders`
+  String get noOrders {
+    return Intl.message(
+      'No Orders',
+      name: 'noOrders',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

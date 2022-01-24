@@ -2,14 +2,15 @@ import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
+import 'package:blush_delivery/typedef/typedef.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OrderListTile extends StatelessWidget {
   final Order order;
-  final VoidCallback? onTap;
-  final VoidCallback? onLongPressed;
-  final Function(BuildContext context)? onEdit;
+  final TapReportCallBack? onTap;
+  final TapReportCallBack? onLongPressed;
+  final TapReportCallBack? onEdit;
   const OrderListTile(
       {Key? key,
       required this.order,
@@ -18,12 +19,15 @@ class OrderListTile extends StatelessWidget {
       this.onEdit})
       : super(key: key);
 
+  void handleOnLongPressed() => onLongPressed?.call(order);
+  void handleOnTap() => onTap?.call(order);
+
   @override
   Widget build(BuildContext context) {
     return Slidable(
       startActionPane: ActionPane(motion: const BehindMotion(), children: [
         SlidableAction(
-          onPressed: order.isCompleted ? null : onEdit,
+          onPressed: order.isCompleted ? null : (_) => onEdit?.call(order),
           label: S.of(context).edit,
           icon: Icons.edit,
           backgroundColor: kcPrimary,
@@ -31,8 +35,8 @@ class OrderListTile extends StatelessWidget {
       ]),
       child: ListTile(
         tileColor: Colors.white,
-        onLongPress: onLongPressed,
-        onTap: onTap,
+        onLongPress: onLongPressed != null ? handleOnLongPressed : null,
+        onTap: onTap != null ? handleOnTap : null,
 
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

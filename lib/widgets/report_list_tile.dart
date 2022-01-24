@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 
 class ReportListTile extends StatelessWidget {
   final Report report;
-  const ReportListTile({Key? key, required this.report}) : super(key: key);
+  final void Function(Report report)? onTap;
+  const ReportListTile({Key? key, required this.report, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ReportListTile extends StatelessWidget {
           const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       // shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusSemiLarge),
       style: ListTileStyle.list,
-      onTap: () {},
+      onTap: onTap != null ? handleOnTap : null,
       enableFeedback: false,
       dense: true,
       tileColor: Colors.white,
@@ -53,6 +55,8 @@ class ReportListTile extends StatelessWidget {
       ),
     );
   }
+
+  void handleOnTap() => onTap?.call(report);
 }
 
 class _ReportProgress extends StatelessWidget {

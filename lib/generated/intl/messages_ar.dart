@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mbok": MessageLookupByLibrary.simpleMessage("بنكك"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "الرجاء التاكد من اتصالك؛ ب خددمة الانترنت"),
+        "noOrders": MessageLookupByLibrary.simpleMessage("لاتوجد طلبيات"),
         "pass": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "passHint": MessageLookupByLibrary.simpleMessage("ادخل كلمة المرور"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),

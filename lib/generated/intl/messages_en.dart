@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mbok": MessageLookupByLibrary.simpleMessage("Mbok"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "Check Your Network Connection"),
+        "noOrders": MessageLookupByLibrary.simpleMessage("No Orders"),
         "pass": MessageLookupByLibrary.simpleMessage("Password"),
         "passHint": MessageLookupByLibrary.simpleMessage("Enter your password"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),

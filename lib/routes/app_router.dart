@@ -1,8 +1,13 @@
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
+import 'package:blush_delivery/services/report_orders_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/views/login_view/login_bloc/login_bloc.dart';
 import 'package:blush_delivery/views/login_view/login_view.dart';
+import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
+import 'package:blush_delivery/views/orders_view/orders_view.dart';
 import 'package:blush_delivery/views/reports_view/reports_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +29,15 @@ class AppRouter {
         );
       case kReportsView:
         return MaterialPageRoute(builder: (_) => const ReportsView());
+      case kOrdersRoute:
+        var report = (settings.arguments as Report?) ??
+            Report.fromJson(AppMocks.kReportMock);
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<OrdersBloc>(
+                  create: (context) => OrdersBloc(
+                      orderService: ReportOrdersService(), report: report),
+                  child: OrdersView(report: report),
+                ));
       case kMainRoute:
         return MaterialPageRoute(
           builder: (ctx) => Container(

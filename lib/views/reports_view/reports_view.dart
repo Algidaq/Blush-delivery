@@ -1,6 +1,8 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
+import 'package:blush_delivery/models/report.dart';
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
@@ -57,11 +59,13 @@ class _ReportsViewState extends State<ReportsView> {
                   case StateEnum.busy:
                     return const ReportsListLoading();
                   case StateEnum.error:
-                    return Center(
-                      child: TextWithButton(
-                        text: state.message,
-                        buttonText: S.of(context).reload,
-                        onTap: handleRefresh,
+                    return SingleChildScrollView(
+                      child: Center(
+                        child: TextWithButton(
+                          text: state.message,
+                          buttonText: S.of(context).reload,
+                          onTap: handleRefresh,
+                        ),
                       ),
                     );
                   case StateEnum.success:
@@ -91,7 +95,9 @@ class _ReportsViewState extends State<ReportsView> {
                                     ),
                                   )
                             : ReportListTile(
-                                report: state.reportResModel!.reports[index]),
+                                report: state.reportResModel!.reports[index],
+                                onTap: handleReportTap,
+                              ),
                         separatorBuilder: (ctx, index) => Divider(
                               color: Colors.grey[350],
                               indent: 16.0,
@@ -137,6 +143,10 @@ class _ReportsViewState extends State<ReportsView> {
     final maxScroll = _controller.position.maxScrollExtent;
     final currentScroll = _controller.offset;
     return currentScroll >= (maxScroll * 0.9);
+  }
+
+  void handleReportTap(Report report) {
+    Navigator.of(context).pushNamed(kOrdersRoute, arguments: report);
   }
 }
 

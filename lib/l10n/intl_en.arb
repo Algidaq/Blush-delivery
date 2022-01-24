@@ -15,5 +15,6 @@
     "mbok":"Mbok",
     "cashAndMbok":"Cash & Mbok",
     "unpaid": "Unpaid",
-    "edit":"Edit"
+    "edit":"Edit",
+    "noOrders":"No Orders"
 }
