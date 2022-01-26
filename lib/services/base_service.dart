@@ -11,12 +11,23 @@ abstract class BaseService {
         .post(path, data: reqmodel.toJson(), queryParameters: queryParams);
   }
 
+  Future<Response<dynamic>> put(
+      {required Map<String, dynamic> data, Map<String, dynamic>? queryParams}) {
+    return _httpService.dio
+        .post(path, data: data, queryParameters: queryParams);
+  }
+
   Future<Response<dynamic>> get(
       {String params = '', Map<String, dynamic>? queryParams}) {
     return _httpService.dio.get(
       path + params,
       queryParameters: queryParams,
     );
+  }
+
+  Future<Response<dynamic>> uploadImage({required FormData formData}) {
+    return _httpService.dio.post(path,
+        options: Options(contentType: 'multipart/form-data'), data: formData);
   }
 
   set token(String value) {

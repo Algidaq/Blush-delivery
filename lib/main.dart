@@ -1,5 +1,7 @@
 import 'package:blush_delivery/app_bloc.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
+import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
+import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
@@ -8,6 +10,7 @@ import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
+import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_loading_list_tile.dart';
 import 'package:blush_delivery/widgets/report_list_tile.dart';
@@ -78,28 +81,45 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      onGenerateRoute: router.onGenerateRoute,
-                      initialRoute: kLoginRoute,
+                      // onGenerateRoute: router.onGenerateRoute,
+                      // initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
-                      // home: Scaffold(
-                      //   appBar: AppBar(),
-                      //   backgroundColor: kcGrayDark,
-                      //   body: ListView(
-                      //     // padding: kListViewPadding,
-                      //     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      //     children: [
-                      //       OrderListTile(
-                      //         order: Order.fromJson(AppMocks.kOrderMock),
-                      //       ),
-                      //       const OrderLoadingListTile(),
-                      //     ],
-                      //   ),
-                      // ),
+                      home: const HomeTest(),
                     );
                   },
                 )),
       ),
     );
+  }
+}
+
+class HomeTest extends StatelessWidget {
+  const HomeTest({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        backgroundColor: kcGrayDark,
+        body: Center(
+          child: AppButton(
+            'data',
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                constraints: BoxConstraints.expand(
+                    height: MediaQuery.of(context).size.height - 104.0),
+                enableDrag: true,
+                isDismissible: false,
+                builder: (__) => OrderEditBottomSheet(
+                  order: Order.fromJson(AppMocks.kOrderMock),
+                ),
+              );
+            },
+          ),
+        ));
   }
 }

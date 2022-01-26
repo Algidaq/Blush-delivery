@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:dio/dio.dart';
 

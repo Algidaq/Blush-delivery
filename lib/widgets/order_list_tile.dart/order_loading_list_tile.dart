@@ -1,5 +1,4 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

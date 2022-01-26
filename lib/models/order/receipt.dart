@@ -17,4 +17,8 @@ class Receipt extends Equatable {
   String get src => _src ?? 'N/A';
   @override
   List<Object?> get props => [id, src];
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'src': src};
+  }
 }
