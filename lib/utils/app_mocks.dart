@@ -1,4 +1,5 @@
 import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -309,5 +310,11 @@ class DriverReportSerivceMock implements IDriverReportService {
     }
 
     return DriverReportResModel.fromJson(mocks, headers);
+  }
+
+  @override
+  Future<Report> getReportByDate({required String date}) {
+    // TODO: implement getReportByDate
+    throw UnimplementedError();
   }
 }

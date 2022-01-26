@@ -2,6 +2,7 @@ import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
 import 'package:blush_delivery/interfaces/i_report_orders_service.dart';
 import 'package:blush_delivery/models/app_exception.dart';
 import 'package:blush_delivery/models/order/order.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -26,6 +27,12 @@ class DriverReportSerivceMock implements IDriverReportService {
 
     return DriverReportResModel.fromJson(mocks, headers);
   }
+
+  @override
+  Future<Report> getReportByDate({required String date}) {
+    // TODO: implement getReportByDate
+    throw UnimplementedError();
+  }
 }
 
 class DriverServiceErrorMock implements IDriverReportService {
@@ -34,6 +41,12 @@ class DriverServiceErrorMock implements IDriverReportService {
       {DriverReportReqModel? queryParams}) {
     Future.delayed(const Duration(seconds: 2));
     throw AppException('UnAble to reterive application Data');
+  }
+
+  @override
+  Future<Report> getReportByDate({required String date}) {
+    // TODO: implement getReportByDate
+    throw UnimplementedError();
   }
 }
 

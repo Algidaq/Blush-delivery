@@ -7,9 +7,10 @@ class OrdersListLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (_, index) => const OrderLoadingListTile(),
-        separatorBuilder: (_, index) => kListTileDivider,
-        itemCount: 10);
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+          (_, index) => const OrderLoadingListTile(),
+          childCount: 10),
+    );
   }
 }

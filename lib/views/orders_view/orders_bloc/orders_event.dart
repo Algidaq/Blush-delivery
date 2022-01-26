@@ -9,3 +9,8 @@ class ReorderOrder extends OrdersEvent {
   final int newIndex;
   ReorderOrder(this.oldIndex, this.newIndex);
 }
+
+class EditOrder extends OrdersEvent {
+  final Order order;
+  EditOrder(this.order);
+}
