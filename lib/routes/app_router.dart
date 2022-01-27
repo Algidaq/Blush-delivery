@@ -53,6 +53,7 @@ class AppRouter {
                   ],
                   child: OrdersView(report: report),
                 ));
+
       case kMainRoute:
         return MaterialPageRoute(
           builder: (ctx) => Container(

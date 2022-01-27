@@ -7,6 +7,7 @@ import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_header/order_header_bloc/order_header_bloc.dart';
+import 'package:blush_delivery/views/orders_view/widgets/orders_call_action_sheet.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_list_loading.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:blush_delivery/widgets/report_progress.dart';
@@ -16,6 +17,7 @@ import 'package:blush_delivery/widgets/text_with_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'widgets/order_header/order_view_header.dart';
 
@@ -70,6 +72,7 @@ class _OrdersViewState extends State<OrdersView> {
                             onEdit: handleOrderEdit,
                             // onLongPressed: handleOrderLongPress,
                             onTap: handleOrderTap,
+                            onCall: handleCall,
                           ),
                         ),
                         itemCount: state.orders.length,
@@ -129,5 +132,17 @@ class _OrdersViewState extends State<OrdersView> {
 
   void handleReorder(int oldIndex, int newIndex) {
     bloc.add(ReorderOrder(oldIndex, newIndex));
+  }
+
+  void handleCall(Order order) {
+    AppLogger.d('on Call $order');
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      enableDrag: true,
+      context: context,
+      builder: (_) => OrdersCallActionSheet(
+        billing: order.billing,
+      ),
+    );
   }
 }
