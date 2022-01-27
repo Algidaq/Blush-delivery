@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
 import 'package:blush_delivery/enums/payment_method.dart';
 import 'package:blush_delivery/interfaces/i_edit_order_service.dart';
@@ -5,14 +7,33 @@ import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/order_update_model.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
+import 'package:equatable/equatable.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class OrderEditBottomSheetBloc extends Cubit<StateEnum> {
+class OrderEditBottomSheetState extends Equatable {
+  final StateEnum viewState;
+  final Order? updatedOrder;
+  const OrderEditBottomSheetState(
+      {this.viewState = StateEnum.idel, this.updatedOrder});
+
+  OrderEditBottomSheetState copyWith(
+          {StateEnum? viewState, Order? updatedOrder}) =>
+      OrderEditBottomSheetState(
+        viewState: viewState ?? this.viewState,
+        updatedOrder: updatedOrder,
+      );
+  @override
+  List<Object?> get props => [viewState];
+}
+
+class OrderEditBottomSheetBloc extends Cubit<OrderEditBottomSheetState> {
   late final FormGroup formGroup;
   final Order order;
   final _numberValidator = Validators.pattern(RegExp(r'[0-9]'));
   final IEditOrderService service;
-  OrderEditBottomSheetBloc(this.order, this.service) : super(StateEnum.idel) {
+  Uint8List? _bytes;
+  OrderEditBottomSheetBloc(this.order, this.service)
+      : super(const OrderEditBottomSheetState()) {
     formGroup = FormGroup({
       'paymentMethod': FormControl<PaymentMethod>(value: PaymentMethod.unpaid),
       'cash': FormControl<double>(value: 0.0),
@@ -21,6 +42,7 @@ class OrderEditBottomSheetBloc extends Cubit<StateEnum> {
     });
     paymentMethodCont.valueChanges.listen(handlePaymentMethodChange);
   }
+
   AbstractControl<PaymentMethod> get paymentMethodCont =>
       formGroup.control('paymentMethod') as AbstractControl<PaymentMethod>;
   AbstractControl<double> get cashCont =>
@@ -41,6 +63,7 @@ class OrderEditBottomSheetBloc extends Cubit<StateEnum> {
     if (paymentMethod != null) {
       switch (paymentMethod) {
         case PaymentMethod.cash:
+          resetForm();
           handleCashSelected();
           break;
         case PaymentMethod.mbok:
@@ -138,14 +161,28 @@ class OrderEditBottomSheetBloc extends Cubit<StateEnum> {
 
   Future<void> handleOrderUpdate() async {
     try {
+      setBusy();
       if (updateModel.canUpdate) {
+        var order = await service.updateOrder(updateModel, bytes: _bytes);
+        emit(OrderEditBottomSheetState(
+          viewState: StateEnum.success,
+          updatedOrder: order,
+        ));
       } else {
         formGroup
             .setErrors({'invalidCashAndMbok': 'Invalid Cash and Mbok values'});
       }
     } catch (e) {
+      emit(const OrderEditBottomSheetState(
+        viewState: StateEnum.error,
+        updatedOrder: null,
+      ));
       rethrow;
     }
+  }
+
+  void setBusy() {
+    emit(const OrderEditBottomSheetState(viewState: StateEnum.busy));
   }
 
   Future<void> handleImagePicker() async {
@@ -156,6 +193,8 @@ class OrderEditBottomSheetBloc extends Cubit<StateEnum> {
         var file = await service.imagePickerService.getImageFromGallery();
         if (file != null) {
           receiptCont.value = file.name;
+          AppLogger.i('Path ${file.path}');
+          _bytes = await file.readAsBytes();
         }
       }
     } catch (e) {

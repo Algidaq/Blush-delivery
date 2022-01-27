@@ -30,21 +30,22 @@ class OrderEditForm extends StatelessWidget {
       children: [
         child ?? const SizedBox(),
         verticalSpaceTiny,
-        AppInput(
-          formControllerName: 'receipt',
-          label: 'Receipt',
-          hint: 'Select Image Path',
-          inputType: TextInputType.none,
-          onTap: bloc.handleImagePicker,
-          trailingIcon: IconButton(
-            onPressed: bloc.handleImagePicker,
-            icon: const Icon(
-              Icons.camera_alt_rounded,
-              color: kcPrimary,
+        if (bloc.showReceipt)
+          AppInput(
+            formControllerName: 'receipt',
+            label: 'Receipt',
+            hint: 'Select Image Path',
+            inputType: TextInputType.none,
+            onTap: bloc.handleImagePicker,
+            trailingIcon: IconButton(
+              onPressed: bloc.handleImagePicker,
+              icon: const Icon(
+                Icons.camera_alt_rounded,
+                color: kcPrimary,
+              ),
+              splashColor: kcAccentLight,
             ),
-            splashColor: kcAccentLight,
           ),
-        ),
         verticalSpaceTiny,
         if (form.hasError('invalidCashAndMbok')) ...[
           AppText.body2(
@@ -81,13 +82,13 @@ class OrderEditForm extends StatelessWidget {
             ],
           ),
         verticalSpaceRegular,
-        BlocBuilder<OrderEditBottomSheetBloc, StateEnum>(
+        BlocBuilder<OrderEditBottomSheetBloc, OrderEditBottomSheetState>(
           bloc: bloc,
           builder: (context, state) {
             return AppButton(
               'update',
               disabled: form.invalid,
-              busy: state == StateEnum.busy,
+              busy: state.viewState == StateEnum.busy,
               onTap: bloc.handleOrderUpdate,
             );
           },

@@ -10,6 +10,7 @@ import 'package:blush_delivery/views/order_edit_bottom_sheet/widgets/order_edit_
 import 'package:blush_delivery/views/order_edit_bottom_sheet/widgets/order_edit_form.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/widgets/order_edit_payment_methods.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class OrderEditBottomSheet extends StatefulWidget {
@@ -30,45 +31,47 @@ class _OrderEditBottomSheetState extends State<OrderEditBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      minChildSize: 0.6,
-      initialChildSize: 0.7,
-      builder: (_, cot) => ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: ReactiveForm(
-            formGroup: bloc.formGroup,
-            child: ListView(
-              controller: cot,
-              shrinkWrap: true,
-              padding: kListViewPadding,
-              children: [
-                OrderEditBottomSheetHeader(order: widget.order),
-                verticalSpaceSmall,
-                const AppText.subtitle('Select Payment Method'),
-                verticalSpaceSmall,
-                const OrderEditPaymentMethods(),
-                verticalSpaceSmall,
-                ReactiveFormConsumer(
-                  child:
-                      const AppText.subtitle('Please Complete Insert Values'),
-                  builder: (_, form, child) => AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    // height: bloc.showReceipt ? 204.0 : 0.0,
-                    child: !bloc.showReceipt
-                        ? const SizedBox()
-                        : OrderEditForm(
-                            bloc: bloc,
-                            form: form,
-                            child: child,
-                          ),
+    return BlocListener<OrderEditBottomSheetBloc, OrderEditBottomSheetState>(
+      listener: handleNavigation,
+      bloc: bloc,
+      child: DraggableScrollableSheet(
+        minChildSize: 0.6,
+        initialChildSize: 0.7,
+        builder: (_, cot) => ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: ReactiveForm(
+              formGroup: bloc.formGroup,
+              child: ListView(
+                controller: cot,
+                shrinkWrap: true,
+                padding: kListViewPadding,
+                children: [
+                  OrderEditBottomSheetHeader(order: widget.order),
+                  verticalSpaceSmall,
+                  const AppText.subtitle('Select Payment Method'),
+                  verticalSpaceSmall,
+                  const OrderEditPaymentMethods(),
+                  verticalSpaceSmall,
+                  ReactiveFormConsumer(
+                    child:
+                        const AppText.subtitle('Please Complete Insert Values'),
+                    builder: (_, form, child) => Column(
+                      children: [
+                        OrderEditForm(
+                          bloc: bloc,
+                          form: form,
+                          child: child,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -81,5 +84,12 @@ class _OrderEditBottomSheetState extends State<OrderEditBottomSheet> {
     bloc.close();
     super.dispose();
     AppLogger.e(this, 'On dispose');
+  }
+
+  void handleNavigation(BuildContext context, OrderEditBottomSheetState state) {
+    if (state.viewState == StateEnum.success ||
+        state.viewState == StateEnum.error) {
+      Navigator.of(context).pop(state.updatedOrder);
+    }
   }
 }

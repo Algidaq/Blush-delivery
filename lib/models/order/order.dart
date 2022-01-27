@@ -123,5 +123,12 @@ class Order extends Equatable {
   bool get isCompleted => orderStatus == 'completed';
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [
+        id,
+        paymentMethod,
+        orderStatus,
+        cash,
+        mbok,
+        receipt,
+      ];
 }

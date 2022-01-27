@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:blush_delivery/extensions/exception_ext.dart';
 import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -29,6 +30,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState>
     on<ReloadReports>(handleReloadReports);
     on<LoadReports>(handleLoadReports,
         transformer: throttleDroppable(throttleDuration));
+    on<UpdateReport>(handleUpdateReport);
   }
 
   FutureOr<void> handleReloadReports(
@@ -90,5 +92,14 @@ class ReportBloc extends Bloc<ReportEvent, ReportState>
   void onChange(Change<ReportState> change) {
     AppLogger.i('onChange: ${change.toString()}');
     super.onChange(change);
+  }
+
+  FutureOr<void> handleUpdateReport(
+      UpdateReport event, Emitter<ReportState> emit) {
+    var reports = [...state.reportResModel!.reports];
+    var index = reports.indexOf(event.oldReport);
+    reports[index] = event.newReport;
+    emit(state.copyWith(
+        reportResModel: state.reportResModel!.copyWith(reports: reports)));
   }
 }

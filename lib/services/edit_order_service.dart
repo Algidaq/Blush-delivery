@@ -11,22 +11,23 @@ import 'package:blush_delivery/services/image_picker_service.dart';
 import 'package:blush_delivery/services/permission_handler_service.dart';
 import 'package:dio/dio.dart';
 
+import 'package:http_parser/http_parser.dart';
+
 class EditOrderService extends BaseService implements IEditOrderService {
   @override
   IImagePickerService imagePickerService = ImagePickerService();
   @override
   IPermissionHandlerService permissionService = PermissionHandlerService();
-  String? _path;
+  late String? _path;
   @override
   String get path => _path ?? '';
   set path(String value) {
-    _path = path;
+    _path = value;
   }
 
   @override
   Future<Order?> updateOrder(OrderUpdateModel model, {Uint8List? bytes}) async {
     try {
-      path = '/woo-orders/${model.id}';
       Map<String, dynamic> data;
       if (model.paymentMethod != PaymentMethod.cash) {
         var receipt = await uploadReceipt(bytes!);
@@ -34,7 +35,7 @@ class EditOrderService extends BaseService implements IEditOrderService {
       } else {
         data = model.toJson();
       }
-      var res = await put(data: data);
+      var res = await put(path: '/woo-orders/${model.id}', data: data);
       return Order.fromJson(res.data);
     } catch (e) {
       return null;
@@ -55,7 +56,10 @@ class EditOrderService extends BaseService implements IEditOrderService {
   @override
   FormData getFormData(Uint8List bytes) {
     return FormData.fromMap(
-      {'receipt': MultipartFile.fromBytes(bytes)},
+      {
+        'receipt': MultipartFile.fromBytes(bytes,
+            filename: 'receipt', contentType: MediaType('image', 'png')),
+      },
     );
   }
 }

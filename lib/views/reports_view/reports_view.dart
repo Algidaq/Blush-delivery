@@ -27,8 +27,7 @@ class _ReportsViewState extends State<ReportsView> {
   late final ScrollController _controller;
   @override
   void initState() {
-    reportBloc = ReportBloc(reportService: DriverReportService())
-      ..add(ReloadReports());
+    reportBloc = context.read()..add(ReloadReports());
     _controller = ScrollController();
     _controller.addListener(handleScroll);
     super.initState();
@@ -149,53 +148,3 @@ class _ReportsViewState extends State<ReportsView> {
     Navigator.of(context).pushNamed(kOrdersRoute, arguments: report);
   }
 }
-
-// // CustomScrollView(
-// //               controller: _controller,
-// //               slivers: [
-// //                 if (state.viewState == StateEnum.busy)
-// //                   const ReportsListLoading(),
-// //                 if (state.viewState == StateEnum.error &&
-// //                     state.reportResModel == null)
-// //                   SliverCenter(
-//                       // padding: const EdgeInsets.all(16.0),
-//                       // child: TextWithButton(
-//                       //   text: state.message,
-//                       //   buttonText: S.of(context).reload,
-//                       //   onTap: handleRefresh,
-//                       // )),
-// //                 if (state.viewState == StateEnum.success)
-// //                   SliverPadding(
-// //                     padding: kListViewPadding,
-// //                     sliver: SliverList(
-// //                       delegate: SliverChildBuilderDelegate(
-//                         (ctx, index) => index >=
-//                                 state.reportResModel!.reports.length
-//                             ? state.hasReachedLimit
-//                                 ? const SizedBox(
-//                                     height: 24.0,
-//                                     width: 24.0,
-//                                   )
-//                                 : const Center(
-//                                     child: SizedBox(
-//                                       height: 24.0,
-//                                       width: 24.0,
-//                                       child: CircularProgressIndicator(
-//                                         valueColor:
-//                                             AlwaysStoppedAnimation(kcPrimary),
-//                                         strokeWidth: 2.0,
-//                                       ),
-//                                     ),
-//                                   )
-//                             : Padding(
-//                                 padding: const EdgeInsets.only(bottom: 8.0),
-//                                 child: ReportListTile(
-//                                     report:
-//                                         state.reportResModel!.reports[index]),
-//                               ),
-//                         childCount: state.reportResModel!.reports.length + 1,
-// //                       ),
-// //                     ),
-// //                   )
-// //               ],
-// //             ),

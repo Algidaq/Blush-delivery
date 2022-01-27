@@ -21,6 +21,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
       : super(const OrdersState()) {
     on<FetchOrders>(handleFetchOrders);
     on<ReorderOrder>(handleReorderOrder);
+    on<EditOrder>(handleEditOrder);
   }
 
   FutureOr<void> handleFetchOrders(
@@ -45,6 +46,15 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
         ? event.newIndex - 1
         : event.newIndex;
     orders.insert(newIndex, data);
+    emit(state.copyWith(orders: orders));
+  }
+
+  FutureOr<void> handleEditOrder(EditOrder event, Emitter<OrdersState> emit) {
+    var index = state.orders.indexWhere(
+      (element) => element.id == event.order.id,
+    );
+    var orders = [...state.orders];
+    orders[index] = event.order;
     emit(state.copyWith(orders: orders));
   }
 }

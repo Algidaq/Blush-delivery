@@ -3,7 +3,10 @@ import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
+import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
+import 'package:blush_delivery/views/orders_view/widgets/order_header/order_header_bloc/order_header_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_list_loading.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:blush_delivery/widgets/report_progress.dart';
@@ -107,7 +110,22 @@ class _OrdersViewState extends State<OrdersView> {
 
   void handleOrderTap(Order order) {}
 
-  void handleOrderEdit(Order order) {}
+  Future<void> handleOrderEdit(Order order) async {
+    var updatedOrder = await showModalBottomSheet<Order>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      constraints: BoxConstraints.expand(
+          height: MediaQuery.of(context).size.height - 104.0),
+      enableDrag: true,
+      isDismissible: false,
+      builder: (context) => OrderEditBottomSheet(order: order),
+    );
+    if (updatedOrder != null) {
+      bloc.add(EditOrder(updatedOrder));
+      context.read<OrderHeaderBloc>().add(ReloadReport());
+    }
+  }
 
   void handleReorder(int oldIndex, int newIndex) {
     bloc.add(ReorderOrder(oldIndex, newIndex));

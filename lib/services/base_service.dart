@@ -12,9 +12,11 @@ abstract class BaseService {
   }
 
   Future<Response<dynamic>> put(
-      {required Map<String, dynamic> data, Map<String, dynamic>? queryParams}) {
+      {required Map<String, dynamic> data,
+      String? path,
+      Map<String, dynamic>? queryParams}) {
     return _httpService.dio
-        .post(path, data: data, queryParameters: queryParams);
+        .put(path ?? this.path, data: data, queryParameters: queryParams);
   }
 
   Future<Response<dynamic>> get(

@@ -8,9 +8,11 @@ import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/repo/app_pref.dart';
 import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
+import 'package:blush_delivery/services/driver_report_service/driver_report_service.dart';
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
+import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_loading_list_tile.dart';
 import 'package:blush_delivery/widgets/report_list_tile.dart';
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
               RepositoryProvider.of<AppPref>(cxt),
             ),
           ),
+          BlocProvider<ReportBloc>(
+            create: (_) => ReportBloc(reportService: DriverReportService()),
+          )
         ],
         child: ScreenUtilInit(
             designSize: const Size(844.0, 390.0),
@@ -81,11 +86,11 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      // onGenerateRoute: router.onGenerateRoute,
-                      // initialRoute: kLoginRoute,
+                      onGenerateRoute: router.onGenerateRoute,
+                      initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
-                      home: const HomeTest(),
+                      // home: const HomeTest(),
                     );
                   },
                 )),

@@ -46,5 +46,13 @@ class Report extends Equatable {
   num get progress =>
       (int.parse(completedOrders) / int.parse(totalOrders)) * 100;
   @override
-  List<Object?> get props => [date];
+  List<Object?> get props => [
+        date,
+        totalOrders,
+        totalCash,
+        totalMbok,
+        total,
+        completedOrders,
+        incompleteOrders,
+      ];
 }

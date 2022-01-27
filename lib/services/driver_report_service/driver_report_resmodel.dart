@@ -6,7 +6,9 @@ class DriverReportResModel extends Equatable {
   final List<Report> reports = [];
   late final String? _pages;
   late final String? _count;
-  DriverReportResModel();
+  DriverReportResModel({int pages = 1, int count = 10})
+      : _count = count.toString(),
+        _pages = pages.toString();
   DriverReportResModel.fromJson(List<dynamic> json, Headers headers) {
     try {
       if (json.isNotEmpty) {
@@ -22,8 +24,18 @@ class DriverReportResModel extends Equatable {
   }
 
   int get totalPages => int.tryParse(_pages ?? '1') ?? 1;
+
   int get count => int.tryParse(_count ?? '1') ?? 10;
+  DriverReportResModel copyWith(
+      {List<Report> reports = const [], int? count, int? pages}) {
+    var resmodel = DriverReportResModel(
+      pages: pages ?? totalPages,
+      count: count ?? this.count,
+    );
+    resmodel.reports.addAll(reports);
+    return resmodel;
+  }
 
   @override
-  List<Object?> get props => [reports.length];
+  List<Object?> get props => [reports];
 }

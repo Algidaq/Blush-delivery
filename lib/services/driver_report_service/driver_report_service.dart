@@ -24,7 +24,7 @@ class DriverReportService extends BaseService implements IDriverReportService {
   @override
   Future<Report> getReportByDate({required String date}) async {
     try {
-      var res = await get(params: date);
+      var res = await get(params: '/$date');
       return Report.fromJson(res.data);
     } catch (e) {
       AppLogger.e(e);

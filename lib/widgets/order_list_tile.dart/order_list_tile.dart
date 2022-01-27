@@ -89,7 +89,7 @@ class OrderListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               verticalSpaceTiny,
-              AppText.body2(order.formatedCash + ' SDG'),
+              AppText.body2(order.formatedTotal + ' SDG'),
               // OrderStatusChip(orderStatus: order.orderStatus),
             ],
           ),
