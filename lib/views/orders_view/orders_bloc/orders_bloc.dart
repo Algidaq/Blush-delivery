@@ -57,4 +57,14 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
     orders[index] = event.order;
     emit(state.copyWith(orders: orders));
   }
+
+  Future<void> notifieCustomer(Order order) async {
+    if (order.isNotified) return;
+    try {
+      var updatedOrder = await orderService.notifieCustomer(order.id);
+      add(EditOrder(updatedOrder));
+    } catch (e) {
+      AppLogger.e(e);
+    }
+  }
 }

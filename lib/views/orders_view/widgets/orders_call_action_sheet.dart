@@ -28,7 +28,7 @@ class OrdersCallActionSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    title: AppText.subtitle(
+                    title: const AppText.subtitle(
                       'Primary Phone',
                     ),
                     subtitle: AppText.body2(
@@ -42,7 +42,7 @@ class OrdersCallActionSheet extends StatelessWidget {
                   ),
                   kListTileDivider,
                   ListTile(
-                    title: AppText.subtitle('Secondary Phone'),
+                    title: const AppText.subtitle('Secondary Phone'),
                     subtitle: AppText.body2(
                       billing.phone,
                       color: Colors.grey,

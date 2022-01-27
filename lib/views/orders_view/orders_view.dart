@@ -7,6 +7,7 @@ import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_header/order_header_bloc/order_header_bloc.dart';
+import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order_notes_sheet.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_call_action_sheet.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_list_loading.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
@@ -73,6 +74,8 @@ class _OrdersViewState extends State<OrdersView> {
                             // onLongPressed: handleOrderLongPress,
                             onTap: handleOrderTap,
                             onCall: handleCall,
+                            onNotes: showNotesBottomSheet,
+                            onNotifie: bloc.notifieCustomer,
                           ),
                         ),
                         itemCount: state.orders.length,
@@ -143,6 +146,16 @@ class _OrdersViewState extends State<OrdersView> {
       builder: (_) => OrdersCallActionSheet(
         billing: order.billing,
       ),
+    );
+  }
+
+  void showNotesBottomSheet(Order order) {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      enableDrag: true,
+      isDismissible: true,
+      context: context,
+      builder: (_) => OrderNotesSheet(order: order),
     );
   }
 }

@@ -15,4 +15,14 @@ class ReportOrdersService extends BaseService implements IReportOrdersService {
       rethrow;
     }
   }
+
+  @override
+  Future<Order> notifieCustomer(String id) async {
+    try {
+      var res = await put(data: {}, path: '/driver/orders/notifie/$id');
+      return Order.fromJson(res.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

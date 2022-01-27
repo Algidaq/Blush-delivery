@@ -12,13 +12,17 @@ class OrderListTile extends StatelessWidget {
   final TapReportCallBack? onLongPressed;
   final TapReportCallBack? onEdit;
   final TapReportCallBack? onCall;
+  final TapReportCallBack? onNotes;
+  final TapReportCallBack? onNotifie;
   const OrderListTile(
       {Key? key,
       required this.order,
       this.onTap,
       this.onLongPressed,
       this.onEdit,
-      this.onCall})
+      this.onCall,
+      this.onNotes,
+      this.onNotifie})
       : super(key: key);
 
   void handleOnLongPressed() => onLongPressed?.call(order);
@@ -43,6 +47,24 @@ class OrderListTile extends StatelessWidget {
           backgroundColor: kcPrimary,
         ),
       ]),
+      endActionPane: ActionPane(
+        motion: const BehindMotion(),
+        children: [
+          if (!order.isNotified)
+            SlidableAction(
+              onPressed: (_) => onNotifie?.call(order),
+              icon: Icons.notification_add_rounded,
+              label: 'Notifie',
+              backgroundColor: kcPrimary,
+            ),
+          SlidableAction(
+            onPressed: (_) => onNotes?.call(order),
+            icon: Icons.chat_bubble_rounded,
+            label: 'Notes',
+            backgroundColor: kcAccentLight,
+          )
+        ],
+      ),
       child: Material(
         child: ListTile(
           tileColor: Colors.white,

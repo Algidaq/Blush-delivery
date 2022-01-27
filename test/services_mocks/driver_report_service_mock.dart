@@ -59,11 +59,23 @@ class ReportOrdersServiceMock implements IReportOrdersService {
       (index) => Order.fromJson(AppMocks.kOrderMock),
     );
   }
+
+  @override
+  Future<Order> notifieCustomer(String id) {
+    // TODO: implement notifieCustomer
+    throw UnimplementedError();
+  }
 }
 
 class ReportOrdersServiceErrorMock implements IReportOrdersService {
   @override
   Future<List<Order>> getReportOrders({required String reportDate}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Order> notifieCustomer(String id) {
+    // TODO: implement notifieCustomer
     throw UnimplementedError();
   }
 }

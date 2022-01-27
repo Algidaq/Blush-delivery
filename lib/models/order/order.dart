@@ -22,6 +22,7 @@ class Order extends Equatable {
   late final num? _mbok;
   late final int? _paymentMethod;
   late final bool? _isVerified;
+  late final bool? _isNotified;
   late final Billing billing;
   final List<Product> products = [];
   final List<Note> notes = [];
@@ -40,6 +41,7 @@ class Order extends Equatable {
       _mbok = json['mbok'];
       _paymentMethod = json['paymentMethod'];
       _isVerified = json['isVerified'];
+      _isNotified = json['isNotified'];
       var billingJson = json['billing'] ?? <String, dynamic>{};
       billing = Billing.fromJson(billingJson);
       List<dynamic> productsJson = json['lineItems'] ?? [];
@@ -116,6 +118,8 @@ class Order extends Equatable {
   /// is the order verified by the accounting
   bool get isVerified => _isVerified ?? false;
 
+  /// is the user notified the customer
+  bool get isNotified => _isNotified ?? false;
   String orderFormater(num number) {
     return NumberFormat('#,###').format(number);
   }
@@ -123,12 +127,6 @@ class Order extends Equatable {
   bool get isCompleted => orderStatus == 'completed';
 
   @override
-  List<Object?> get props => [
-        id,
-        paymentMethod,
-        orderStatus,
-        cash,
-        mbok,
-        receipt,
-      ];
+  List<Object?> get props =>
+      [id, paymentMethod, orderStatus, cash, mbok, receipt, isNotified];
 }
