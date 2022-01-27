@@ -1,6 +1,7 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_input.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/services/edit_order_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -53,13 +54,13 @@ class _OrderEditBottomSheetState extends State<OrderEditBottomSheet> {
                 children: [
                   OrderEditBottomSheetHeader(order: widget.order),
                   verticalSpaceSmall,
-                  const AppText.subtitle('Select Payment Method'),
+                  AppText.subtitle(
+                      S.of(context).select + ' ' + S.of(context).paymentMethod),
                   verticalSpaceSmall,
                   const OrderEditPaymentMethods(),
                   verticalSpaceSmall,
                   ReactiveFormConsumer(
-                    child:
-                        const AppText.subtitle('Please Complete Insert Values'),
+                    // child: AppText.subtitle('Please Complete Insert Values'),
                     builder: (_, form, child) => Column(
                       children: [
                         OrderEditForm(

@@ -33,8 +33,8 @@ class OrderEditForm extends StatelessWidget {
         if (bloc.showReceipt)
           AppInput(
             formControllerName: 'receipt',
-            label: 'Receipt',
-            hint: 'Select Image Path',
+            label: S.of(context).receipt,
+            hint: S.of(context).selectImagePath,
             inputType: TextInputType.none,
             onTap: bloc.handleImagePicker,
             trailingIcon: IconButton(
@@ -86,7 +86,7 @@ class OrderEditForm extends StatelessWidget {
           bloc: bloc,
           builder: (context, state) {
             return AppButton(
-              'update',
+              S.of(context).update,
               disabled: form.invalid,
               busy: state.viewState == StateEnum.busy,
               onTap: bloc.handleOrderUpdate,

@@ -54,13 +54,13 @@ class OrderListTile extends StatelessWidget {
             SlidableAction(
               onPressed: (_) => onNotifie?.call(order),
               icon: Icons.notification_add_rounded,
-              label: 'Notifie',
+              label: S.of(context).notify,
               backgroundColor: kcPrimary,
             ),
           SlidableAction(
             onPressed: (_) => onNotes?.call(order),
             icon: Icons.chat_bubble_rounded,
-            label: 'Notes',
+            label: S.of(context).notes,
             backgroundColor: kcAccentLight,
           )
         ],

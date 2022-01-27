@@ -1,5 +1,6 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,8 +29,8 @@ class OrdersCallActionSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    title: const AppText.subtitle(
-                      'Primary Phone',
+                    title: AppText.subtitle(
+                      S.of(context).primaryPhone,
                     ),
                     subtitle: AppText.body2(
                       billing.phone,
@@ -42,7 +43,7 @@ class OrdersCallActionSheet extends StatelessWidget {
                   ),
                   kListTileDivider,
                   ListTile(
-                    title: const AppText.subtitle('Secondary Phone'),
+                    title: AppText.subtitle(S.of(context).secondaryPhone),
                     subtitle: AppText.body2(
                       billing.phone,
                       color: Colors.grey,

@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cashAndMbok": MessageLookupByLibrary.simpleMessage("Cash & Mbok"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "en": MessageLookupByLibrary.simpleMessage("English"),
+        "invalidCashAndMbok": MessageLookupByLibrary.simpleMessage(
+            "Cash + Mbok not equal order total"),
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "Invalid phone number or password"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -35,15 +37,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkError": MessageLookupByLibrary.simpleMessage(
             "Check Your Network Connection"),
         "noOrders": MessageLookupByLibrary.simpleMessage("No Orders"),
+        "notes": MessageLookupByLibrary.simpleMessage("Notes"),
+        "notify": MessageLookupByLibrary.simpleMessage("Notifiy"),
+        "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "pass": MessageLookupByLibrary.simpleMessage("Password"),
         "passHint": MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "primaryPhone": MessageLookupByLibrary.simpleMessage("Primary Phone"),
+        "receipt": MessageLookupByLibrary.simpleMessage("Recepit"),
         "reload": MessageLookupByLibrary.simpleMessage("Reload"),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "requestCancelled": MessageLookupByLibrary.simpleMessage(
             "Your request to server got cancelled"),
+        "secondaryPhone": MessageLookupByLibrary.simpleMessage("Second Phone"),
+        "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "selectImagePath": MessageLookupByLibrary.simpleMessage(
+            "Select receipt from gallery or capture a photo"),
+        "total": MessageLookupByLibrary.simpleMessage("Total"),
         "unavailableService": MessageLookupByLibrary.simpleMessage(
             "Wer sorry service is currentlly unavailable"),
-        "unpaid": MessageLookupByLibrary.simpleMessage("Unpaid")
+        "unpaid": MessageLookupByLibrary.simpleMessage("Unpaid"),
+        "update": MessageLookupByLibrary.simpleMessage("update")
       };
 }

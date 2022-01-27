@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:blush_delivery/enums/payment_method.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/interfaces/i_edit_order_service.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/order_update_model.dart';
@@ -170,7 +171,7 @@ class OrderEditBottomSheetBloc extends Cubit<OrderEditBottomSheetState> {
         ));
       } else {
         formGroup
-            .setErrors({'invalidCashAndMbok': 'Invalid Cash and Mbok values'});
+            .setErrors({'invalidCashAndMbok': S.current.invalidCashAndMbok});
       }
     } catch (e) {
       emit(const OrderEditBottomSheetState(

@@ -17,6 +17,19 @@
     "unpaid": "لم يم الدفع",
     "edit":"تعديل",
     "noOrders":"لاتوجد طلبيات",
-    "call":"إتصل"
+    "call":"إتصل",
+    "orders":"طلبات",
+    "primaryPhone":"رقم الهاتف الاساسي",
+    "secondaryPhone":"رقم الهاتف الاخر",
+    "notes":"ملاحظات",
+    "notify":"Notify",
+    "paymentMethod":"طريقة الدفع",
+    "select":"اختر",
+    "invalidCashAndMbok":"قيمة النقد + بنكك لا تساوي قيمة الطلب",
+    "total":"إلاجمالي",
+    "receipt":"الإشعار",
+    "selectImagePath":"اختر الاشعار من الاستوديو او او صوره",
+    "update":"تحديث"
+
 
 }

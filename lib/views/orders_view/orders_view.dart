@@ -44,7 +44,7 @@ class _OrdersViewState extends State<OrdersView> {
     return Scaffold(
       appBar: AppBar(
         title: AppText.title(
-          '${widget.report.date} Orders',
+          '${widget.report.date} ${S.of(context).orders}',
           color: Colors.white,
         ),
       ),

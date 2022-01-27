@@ -17,5 +17,18 @@
     "unpaid": "Unpaid",
     "edit":"Edit",
     "noOrders":"No Orders",
-    "call":"Call"
+    "call":"Call",
+    "orders":"Orders",
+    "primaryPhone":"Primary Phone",
+    "secondaryPhone":"Second Phone",
+    "notes":"Notes",
+    "notify":"Notifiy",
+    "paymentMethod":"Payment Method",
+    "select":"Select",
+    "invalidCashAndMbok":"Cash + Mbok not equal order total",
+    "total":"Total",
+    "receipt": "Recepit",
+    "selectImagePath":"Select receipt from gallery or capture a photo",
+    "update":"update"
+    
 }
