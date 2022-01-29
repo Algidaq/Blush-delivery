@@ -3,6 +3,7 @@ import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
@@ -114,7 +115,11 @@ class _OrdersViewState extends State<OrdersView> {
 
   void handleOrderLongPress(Order order) {}
 
-  void handleOrderTap(Order order) {}
+  Future<void> handleOrderTap(Order order) async {
+    var updatedOrder =
+        await Navigator.of(context).pushNamed(kOrderRoute, arguments: order);
+    bloc.add(EditOrder(updatedOrder as Order));
+  }
 
   Future<void> handleOrderEdit(Order order) async {
     var updatedOrder = await showModalBottomSheet<Order>(

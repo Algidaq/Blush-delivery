@@ -3,12 +3,18 @@ import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
+import 'package:blush_delivery/services/edit_order_service.dart';
+import 'package:blush_delivery/utils/state_enum.dart';
+import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_bloc.dart';
+import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_event.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_billing.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_header.dart';
+import 'package:blush_delivery/views/order_view/widgets/order_note.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_payment.dart';
 import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order_notes_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderView extends StatefulWidget {
   final Order order;
@@ -19,53 +25,57 @@ class OrderView extends StatefulWidget {
 }
 
 class _OrderViewState extends State<OrderView> {
+  late final OrderViewBloc bloc;
+
+  @override
+  void initState() {
+    bloc = OrderViewBloc(order: widget.order, service: EditOrderService());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppText.title(
-          'Order ${widget.order.formatedOrder}',
-          color: Colors.white,
-        ),
-      ),
-      backgroundColor: kcGrayMed,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        children: [
-          OrderHeader(order: widget.order),
-          verticalSpaceSmall,
-          ProductsList(order: widget.order),
-          verticalSpaceSmall,
-          OrderPayment(order: widget.order),
-          verticalSpaceSmall,
-          OrderBilling(order: widget.order),
-          verticalSpaceSmall,
-          Container(
+    return WillPopScope(
+      onWillPop: handlePopScope,
+      child: Scaffold(
+        appBar: AppBar(
+          title: AppText.title(
+            'Order ${widget.order.formatedOrder}',
             color: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const AppText.subtitle2('Notes'),
-                    GestureDetector(
-                      onTap: handleSeeAllNotes,
-                      child: AppText.button(
-                        'see all'.toUpperCase(),
-                        color: kcPrimary,
-                      ),
-                    )
-                  ],
-                ),
-                const Divider(),
-              ],
+          ),
+          leading: BlocConsumer<OrderViewBloc, OrderViewState>(
+            bloc: bloc,
+            listener: showSnackBar,
+            builder: (context, state) => IconButton(
+              onPressed: state.viewState == StateEnum.busy
+                  ? null
+                  : handleNavigationBack,
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
             ),
-          )
-        ],
+          ),
+        ),
+        backgroundColor: kcGrayMed,
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          children: [
+            OrderHeader(order: bloc.state.order),
+            verticalSpaceSmall,
+            ProductsList(order: bloc.state.order),
+            verticalSpaceSmall,
+            OrderPayment(order: bloc.state.order),
+            verticalSpaceSmall,
+            OrderBilling(order: bloc.state.order),
+            verticalSpaceSmall,
+            OrderNote(
+              bloc: bloc,
+              onAddNotes: handleAddNote,
+              onSeeAllNotes: handleSeeAllNotes,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -75,7 +85,35 @@ class _OrderViewState extends State<OrderView> {
       enableDrag: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (_) => OrderNotesSheet(order: widget.order),
+      builder: (_) => OrderNotesSheet(order: bloc.state.order),
     );
+  }
+
+  Future<bool> handlePopScope() async {
+    return !(bloc.state.viewState != StateEnum.busy);
+  }
+
+  void showSnackBar(BuildContext context, OrderViewState state) {
+    if (state.viewState == StateEnum.error) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(
+          content: AppText.body2(state.message),
+        ));
+    }
+  }
+
+  void handleNavigationBack() {
+    Navigator.of(context).pop(bloc.state.order);
+  }
+
+  void handleAddNote() {
+    bloc.add(AddNote());
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
 }

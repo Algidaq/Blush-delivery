@@ -9,6 +9,7 @@ import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/services/base_service.dart';
 import 'package:blush_delivery/services/image_picker_service.dart';
 import 'package:blush_delivery/services/permission_handler_service.dart';
+import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:dio/dio.dart';
 
 import 'package:http_parser/http_parser.dart';
@@ -61,5 +62,17 @@ class EditOrderService extends BaseService implements IEditOrderService {
             filename: 'receipt', contentType: MediaType('image', 'png')),
       },
     );
+  }
+
+  @override
+  Future<Order> addOrderNotes(
+      {required String id, required List<Map<String, dynamic>> data}) async {
+    try {
+      var res = await put(path: '/woo-orders/$id', data: {'notes': data});
+      return Order.fromJson(res.data);
+    } catch (e) {
+      AppLogger.e(e);
+      rethrow;
+    }
   }
 }

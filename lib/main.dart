@@ -88,12 +88,11 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      // onGenerateRoute: router.onGenerateRoute,
-                      // initialRoute: kLoginRoute,
+                      onGenerateRoute: router.onGenerateRoute,
+                      initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
-                      home:
-                          OrderView(order: Order.fromJson(AppMocks.kOrderMock)),
+                      // home: const OrderView(order: ),
                     );
                   },
                 )),

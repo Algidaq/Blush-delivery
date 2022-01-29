@@ -128,5 +128,5 @@ class Order extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, paymentMethod, orderStatus, cash, mbok, receipt, isNotified];
+      [id, paymentMethod, orderStatus, cash, mbok, receipt, isNotified, notes];
 }

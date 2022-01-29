@@ -22,5 +22,9 @@ class Note extends Equatable {
       DateFormat('dd-MMM-YY').format(DateTime.parse(createDate));
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, note, createDate];
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'note': note, 'createDate': createDate};
+  }
 }

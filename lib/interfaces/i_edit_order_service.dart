@@ -12,4 +12,7 @@ abstract class IEditOrderService {
   Future<Order?> updateOrder(OrderUpdateModel model, {Uint8List? bytes});
   Future<Receipt> uploadReceipt(Uint8List bytes);
   FormData getFormData(Uint8List bytes);
+
+  Future<Order> addOrderNotes(
+      {required String id, required List<Map<String, dynamic>> data});
 }
