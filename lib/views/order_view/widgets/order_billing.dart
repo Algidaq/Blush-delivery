@@ -3,6 +3,7 @@ import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum MenuAction { call, message }
 
@@ -20,12 +21,8 @@ class OrderBilling extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AppText.subtitle('Customer information'),
+          AppText.subtitle2('Shipping details'),
           const Divider(),
-          AppText.body(
-            'Shipping details',
-            // color: Colors.grey,
-          ),
           verticalSpaceTiny,
           Directionality(
             textDirection: TextDirection.rtl,
@@ -86,7 +83,8 @@ class OrderBilling extends StatelessWidget {
     }
   }
 
-  void handleActionSelected(MenuAction value, String phone) {
-    AppLogger.i(value, phone);
+  Future<void> handleActionSelected(MenuAction value, String phone) async {
+    var leading = value == MenuAction.call ? 'tel' : 'smsto';
+    await launch('$leading:$phone');
   }
 }

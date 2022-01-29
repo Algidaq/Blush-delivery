@@ -70,6 +70,28 @@ class OrderHeader extends StatelessWidget {
                 ],
               )
             ],
+          ),
+          Visibility(
+            visible: order.paymentMethod == PaymentMethod.unpaid,
+            child: Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    alignment: AlignmentDirectional.centerEnd,
+                    onPressed: () {},
+                    padding: const EdgeInsets.all(0),
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 20.0,
+                      color: kcPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),

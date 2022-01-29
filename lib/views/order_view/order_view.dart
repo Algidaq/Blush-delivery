@@ -1,4 +1,5 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
+import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
@@ -6,6 +7,7 @@ import 'package:blush_delivery/views/order_view/widgets/order_billing.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_header.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_payment.dart';
 import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
+import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order_notes_sheet.dart';
 import 'package:flutter/material.dart';
 
 class OrderView extends StatefulWidget {
@@ -36,9 +38,44 @@ class _OrderViewState extends State<OrderView> {
           verticalSpaceSmall,
           OrderPayment(order: widget.order),
           verticalSpaceSmall,
-          OrderBilling(order: widget.order)
+          OrderBilling(order: widget.order),
+          verticalSpaceSmall,
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const AppText.subtitle2('Notes'),
+                    GestureDetector(
+                      onTap: handleSeeAllNotes,
+                      child: AppText.button(
+                        'see all'.toUpperCase(),
+                        color: kcPrimary,
+                      ),
+                    )
+                  ],
+                ),
+                const Divider(),
+              ],
+            ),
+          )
         ],
       ),
+    );
+  }
+
+  void handleSeeAllNotes() {
+    showModalBottomSheet(
+      enableDrag: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (_) => OrderNotesSheet(order: widget.order),
     );
   }
 }
