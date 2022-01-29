@@ -19,24 +19,19 @@ class TextWithButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          flex: 3,
-          child: AppText.subtitle(
-            text,
-            color: textColor,
-          ),
+        AppText.caption(
+          text,
+          color: textColor,
         ),
         horizontalSpaceTiny,
-        Expanded(
-          flex: 2,
-          child: AppButton.text(
-            buttonText,
-            onTap: onTap,
-            // width: 96.0,
-          ),
+        AppButton.text(
+          buttonText,
+          onTap: onTap,
+          width: 96.0,
         )
       ],
     );

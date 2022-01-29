@@ -1,4 +1,5 @@
 import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/base_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
@@ -16,6 +17,17 @@ class DriverReportService extends BaseService implements IDriverReportService {
       return DriverReportResModel.fromJson(res.data, res.headers);
     } catch (e) {
       AppLogger.e(e.toString(), e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Report> getReportByDate({required String date}) async {
+    try {
+      var res = await get(params: '/$date');
+      return Report.fromJson(res.data);
+    } catch (e) {
+      AppLogger.e(e);
       rethrow;
     }
   }

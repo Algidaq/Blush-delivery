@@ -1,4 +1,5 @@
 import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
+import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -109,6 +110,24 @@ class AppMocks {
     }
   };
   static const kReportListMock = [
+    {
+      "totalOrders": "2",
+      "totalCash": 1990,
+      "totalMbok": 0,
+      "total": 1990,
+      "completedOrders": "1",
+      "incompletedOrders": "1",
+      "isVerified": false,
+      "shippingTotal": 0,
+      "date": "14-01-2022",
+      "driver": {
+        "id": "e36b412d-b7cd-41d9-99fe-c693e406a94b",
+        "firstName": "Yousf",
+        "lastName": "Test",
+        "phoneNumber": "0902296931",
+        "role": "driver"
+      }
+    },
     {
       "totalOrders": "2",
       "totalCash": 1990,
@@ -291,5 +310,11 @@ class DriverReportSerivceMock implements IDriverReportService {
     }
 
     return DriverReportResModel.fromJson(mocks, headers);
+  }
+
+  @override
+  Future<Report> getReportByDate({required String date}) {
+    // TODO: implement getReportByDate
+    throw UnimplementedError();
   }
 }

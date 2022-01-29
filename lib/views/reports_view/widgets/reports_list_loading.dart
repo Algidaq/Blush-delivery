@@ -1,4 +1,3 @@
-import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/widgets/report_loading_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -7,15 +6,15 @@ class ReportsListLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: kListViewPadding,
-      sliver: SliverList(
-          delegate: SliverChildListDelegate.fixed(List.generate(
-              10,
-              (index) => const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                    child: ReportLoadingListTile(),
-                  )))),
-    );
+    return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        itemBuilder: (ctx, index) => const ReportLoadingListTile(),
+        separatorBuilder: (_, index) => Divider(
+              color: Colors.grey[350],
+              indent: 16.0,
+              endIndent: 16.0,
+              height: 1.0,
+            ),
+        itemCount: 10);
   }
 }

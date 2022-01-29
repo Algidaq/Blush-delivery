@@ -209,6 +209,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Orders`
+  String get noOrders {
+    return Intl.message(
+      'No Orders',
+      name: 'noOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Call`
+  String get call {
+    return Intl.message(
+      'Call',
+      name: 'call',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message(
+      'Orders',
+      name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Primary Phone`
+  String get primaryPhone {
+    return Intl.message(
+      'Primary Phone',
+      name: 'primaryPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Second Phone`
+  String get secondaryPhone {
+    return Intl.message(
+      'Second Phone',
+      name: 'secondaryPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifiy`
+  String get notify {
+    return Intl.message(
+      'Notifiy',
+      name: 'notify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Method`
+  String get paymentMethod {
+    return Intl.message(
+      'Payment Method',
+      name: 'paymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message(
+      'Select',
+      name: 'select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash + Mbok not equal order total`
+  String get invalidCashAndMbok {
+    return Intl.message(
+      'Cash + Mbok not equal order total',
+      name: 'invalidCashAndMbok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recepit`
+  String get receipt {
+    return Intl.message(
+      'Recepit',
+      name: 'receipt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select receipt from gallery or capture a photo`
+  String get selectImagePath {
+    return Intl.message(
+      'Select receipt from gallery or capture a photo',
+      name: 'selectImagePath',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `update`
+  String get update {
+    return Intl.message(
+      'update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

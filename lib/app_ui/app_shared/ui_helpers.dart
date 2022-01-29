@@ -21,11 +21,19 @@ final Widget verticalSpaceXLarge = SizedBox(height: 64.0.h);
 final EdgeInsets kListViewPadding =
     EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h);
 
+const BorderRadius kBorderRadiusTiny = BorderRadius.all(Radius.circular(4.0));
+
 const BorderRadius kBorderRadiusMid = BorderRadius.all(Radius.circular(12.0));
 const BorderRadius kBorderRadiusSemiLarge =
     BorderRadius.all(Radius.circular(16.0));
 const BorderRadius kBorderRadiusLarge = BorderRadius.all(Radius.circular(24.0));
 
+const Widget kListTileDivider = Divider(
+  color: Color(0xFFD6D6D6),
+  indent: 16.0,
+  endIndent: 16.0,
+  height: 1.0,
+);
 // Screen Size helpers
 
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;

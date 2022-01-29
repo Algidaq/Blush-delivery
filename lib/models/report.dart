@@ -1,4 +1,5 @@
 import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:blush_delivery/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 
 class Report extends Equatable {
@@ -31,15 +32,27 @@ class Report extends Equatable {
 
   String get date => _date ?? 'N/A';
   String get totalOrders => _totalOrders ?? '0';
-  num get totalCash => _totalCash ?? -1;
-  num get totalMbok => _totalMbok ?? -1;
-  num get total => _total ?? -1;
-  num get shippingTotal => _shippingTotal ?? -1;
+  num get totalCash => _totalCash ?? 0.0;
+  String get formatedTotalCash => formatCurrency(totalCash.toDouble());
+  num get totalMbok => _totalMbok ?? 0.0;
+  String get formatedTotalMbok => formatCurrency(totalMbok.toDouble());
+  num get total => _total ?? 0.0;
+  String get formatedTotal => formatCurrency(total.toDouble());
+  num get shippingTotal => _shippingTotal ?? 0.0;
+  String get formatedShippingTotal => formatCurrency(shippingTotal.toDouble());
   String get completedOrders => _completedOrders ?? '0';
   String get incompleteOrders => _incompletedOrders ?? '0';
   bool get isVerified => _isVerified ?? false;
   num get progress =>
       (int.parse(completedOrders) / int.parse(totalOrders)) * 100;
   @override
-  List<Object?> get props => [date];
+  List<Object?> get props => [
+        date,
+        totalOrders,
+        totalCash,
+        totalMbok,
+        total,
+        completedOrders,
+        incompleteOrders,
+      ];
 }

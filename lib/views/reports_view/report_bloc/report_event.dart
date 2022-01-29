@@ -7,3 +7,9 @@ class LoadReports extends ReportEvent {}
 
 /// When Indicator is pulled to referesh content of the tree
 class ReloadReports extends ReportEvent {}
+
+class UpdateReport extends ReportEvent {
+  final Report newReport;
+  final Report oldReport;
+  UpdateReport({required this.newReport, required this.oldReport});
+}

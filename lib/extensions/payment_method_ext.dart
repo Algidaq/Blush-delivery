@@ -14,4 +14,17 @@ extension PaymentMethodExt on PaymentMethod {
         return s.unpaid;
     }
   }
+
+  int get code {
+    switch (this) {
+      case PaymentMethod.cash:
+        return 0;
+      case PaymentMethod.mbok:
+        return 1;
+      case PaymentMethod.cashAndMobk:
+        return 2;
+      case PaymentMethod.unpaid:
+        return -1;
+    }
+  }
 }

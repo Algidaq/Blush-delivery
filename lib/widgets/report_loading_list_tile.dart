@@ -10,8 +10,8 @@ class ReportLoadingListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding:
-          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-      shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusSemiLarge),
+          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      // shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusSemiLarge),
       tileColor: Colors.white,
       style: ListTileStyle.list,
       leading: Shimmer.fromColors(
@@ -80,11 +80,6 @@ class ReportLoadingListTile extends StatelessWidget {
                     const BoxConstraints.tightFor(width: 24.0, height: 16.0)),
             baseColor: kcGrayLight,
             highlightColor: kcGrayDark,
-          ),
-          const Icon(
-            CupertinoIcons.money_dollar,
-            color: kcAccentMed,
-            size: 16.0,
           ),
         ],
       ),

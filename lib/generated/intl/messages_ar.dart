@@ -23,23 +23,42 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ar": MessageLookupByLibrary.simpleMessage("عربي"),
+        "call": MessageLookupByLibrary.simpleMessage("إتصل"),
         "cash": MessageLookupByLibrary.simpleMessage("نقداً"),
         "cashAndMbok": MessageLookupByLibrary.simpleMessage("نقداً و بنكك"),
+        "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "en": MessageLookupByLibrary.simpleMessage("انجليزي"),
+        "invalidCashAndMbok": MessageLookupByLibrary.simpleMessage(
+            "قيمة النقد + بنكك لا تساوي قيمة الطلب"),
         "invalidUser": MessageLookupByLibrary.simpleMessage(
             "رقم الهاتف او كلمة المرور غير صحيحه"),
         "login": MessageLookupByLibrary.simpleMessage("تسيجيل الدخول"),
         "mbok": MessageLookupByLibrary.simpleMessage("بنكك"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "الرجاء التاكد من اتصالك؛ ب خددمة الانترنت"),
+        "noOrders": MessageLookupByLibrary.simpleMessage("لاتوجد طلبيات"),
+        "notes": MessageLookupByLibrary.simpleMessage("ملاحظات"),
+        "notify": MessageLookupByLibrary.simpleMessage("Notify"),
+        "orders": MessageLookupByLibrary.simpleMessage("طلبات"),
         "pass": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "passHint": MessageLookupByLibrary.simpleMessage("ادخل كلمة المرور"),
+        "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "primaryPhone":
+            MessageLookupByLibrary.simpleMessage("رقم الهاتف الاساسي"),
+        "receipt": MessageLookupByLibrary.simpleMessage("الإشعار"),
         "reload": MessageLookupByLibrary.simpleMessage("إعادة الحميل"),
         "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
         "requestCancelled": MessageLookupByLibrary.simpleMessage("تم إالغاء"),
+        "secondaryPhone":
+            MessageLookupByLibrary.simpleMessage("رقم الهاتف الاخر"),
+        "select": MessageLookupByLibrary.simpleMessage("اختر"),
+        "selectImagePath": MessageLookupByLibrary.simpleMessage(
+            "اختر الاشعار من الاستوديو او او صوره"),
+        "total": MessageLookupByLibrary.simpleMessage("إلاجمالي"),
         "unavailableService": MessageLookupByLibrary.simpleMessage(
             "ناسف لعدم توفر الخدمة حالياً"),
-        "unpaid": MessageLookupByLibrary.simpleMessage("لم يم الدفع")
+        "unpaid": MessageLookupByLibrary.simpleMessage("لم يم الدفع"),
+        "update": MessageLookupByLibrary.simpleMessage("تحديث")
       };
 }
