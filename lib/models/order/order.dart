@@ -69,7 +69,7 @@ class Order extends Equatable {
   String get reportDate => _date ?? 'N/A';
 
   /// returns woo-order createDate formated as DayDay-MMM
-  String get createDate => DateFormat('dd-MMM')
+  String get createDate => DateFormat('dd-MMM-yyyy')
       .format(DateTime.parse(_createDate ?? DateTime.now().toString()));
 
   /// returns customer id or -1

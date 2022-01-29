@@ -54,9 +54,9 @@ class ProductItem extends StatelessWidget {
                         child: AutoSizeText(
                           product.name,
                           style: kBody2Style,
-                          maxFontSize: 14.0,
+                          maxFontSize: 12.0,
                           minFontSize: 12.0,
-                          maxLines: 1,
+                          maxLines: 2,
                         ),
                       ),
                       AppText.body2(product.fromatedTotal),

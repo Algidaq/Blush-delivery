@@ -12,6 +12,7 @@ import 'package:blush_delivery/services/driver_report_service/driver_report_serv
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
+import 'package:blush_delivery/views/order_view/order_view.dart';
 import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
@@ -91,7 +92,8 @@ class MyApp extends StatelessWidget {
                       // initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
-                      home: const HomeTest(),
+                      home:
+                          OrderView(order: Order.fromJson(AppMocks.kOrderMock)),
                     );
                   },
                 )),

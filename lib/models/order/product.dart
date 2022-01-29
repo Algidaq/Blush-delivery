@@ -32,7 +32,7 @@ class Product extends Equatable {
   int get varationId => _varationId ?? -1;
   int get quantity => _quantity ?? -1;
   double get total => _total?.toDouble() ?? 0.0;
-  String get fromatedTotal => formatCurrency(total) + 'SDG';
+  String get fromatedTotal => formatCurrency(total) + ' SDG';
   double get price => _productPrice?.toDouble() ?? 0.0;
   String get foramtedPrice => formatCurrency(price);
   String get image => _productImage ?? kImagePlaceHolder;

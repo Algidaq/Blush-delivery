@@ -160,10 +160,10 @@ class OrderStatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints.tightFor(height: 28.0),
+      constraints: const BoxConstraints.tightFor(height: 24.0),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: kBorderRadiusLarge,
+        borderRadius: BorderRadius.circular(4.0),
       ),
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
