@@ -12,6 +12,7 @@ import 'package:blush_delivery/services/driver_report_service/driver_report_serv
 import 'package:blush_delivery/theme/app_theme.dart';
 import 'package:blush_delivery/utils/app_mocks.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
+import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_loading_list_tile.dart';
@@ -86,11 +87,11 @@ class MyApp extends StatelessWidget {
                       color: kcPrimary,
                       themeMode: state.themeMode,
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
-                      onGenerateRoute: router.onGenerateRoute,
-                      initialRoute: kLoginRoute,
+                      // onGenerateRoute: router.onGenerateRoute,
+                      // initialRoute: kLoginRoute,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
-                      // home: const HomeTest(),
+                      home: const HomeTest(),
                     );
                   },
                 )),
@@ -105,26 +106,14 @@ class HomeTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        backgroundColor: kcGrayDark,
-        body: Center(
-          child: AppButton(
-            'data',
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                constraints: BoxConstraints.expand(
-                    height: MediaQuery.of(context).size.height - 104.0),
-                enableDrag: true,
-                isDismissible: false,
-                builder: (__) => OrderEditBottomSheet(
-                  order: Order.fromJson(AppMocks.kOrderMock),
-                ),
-              );
-            },
-          ),
-        ));
+      appBar: AppBar(),
+      backgroundColor: kcGrayDark,
+      body: ListView(
+        children: [
+          verticalSpaceLarge,
+          ProductsList(order: Order.fromJson(AppMocks.kOrderMock))
+        ],
+      ),
+    );
   }
 }
