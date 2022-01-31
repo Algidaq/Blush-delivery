@@ -25,6 +25,17 @@ class Product extends Equatable {
       rethrow;
     }
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'productId': productId,
+      'varationId': varationId,
+      'total': total,
+      'productPrice': _productPrice,
+      'productImage': _productImage
+    };
+  }
 
   String get id => _id ?? 'N/A';
   String get name => _name ?? 'N/A';

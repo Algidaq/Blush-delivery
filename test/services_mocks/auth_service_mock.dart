@@ -1,6 +1,7 @@
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/app_exception.dart';
 import 'package:blush_delivery/models/user.dart';
+import 'package:blush_delivery/repo/app_pref.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/services/auth_service/auth_service_req_model.dart';
 
@@ -19,6 +20,9 @@ class AuthServiceInvalidMock implements IAuthService {
   @override
   // TODO: implement user
   User? get user => throw UnimplementedError();
+
+  @override
+  late Pref pref;
 }
 
 class AuthServiceValidMock implements IAuthService {
@@ -45,4 +49,7 @@ class AuthServiceValidMock implements IAuthService {
   @override
   // TODO: implement user
   User? get user => throw UnimplementedError();
+
+  @override
+  late Pref pref;
 }

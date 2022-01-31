@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/app_exception.dart';
 import 'package:blush_delivery/models/user.dart';
+import 'package:blush_delivery/repo/app_pref.dart';
 import 'package:blush_delivery/services/auth_service/auth_service_req_model.dart';
 import 'package:blush_delivery/services/base_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 abstract class IAuthService {
+  late final Pref pref;
   Future<User> login(AuthServiceReqModel reqmodel);
   set user(User? user);
   User? get user;
@@ -19,6 +21,9 @@ class AuthService extends BaseService implements IAuthService {
   String get path => '/auth';
   User? _user;
   final StreamController<User> _userController = StreamController<User>();
+  @override
+  Pref pref;
+  AuthService(this.pref);
 
   /// login user to server with password and phone number
   @override
@@ -26,7 +31,9 @@ class AuthService extends BaseService implements IAuthService {
     try {
       var response = await post(reqmodel: reqmodel);
       var authToken = response.data['token'].toString();
+      await pref.setUserToken(authToken);
       super.token = authToken;
+
       var user = User.fromJson(JwtDecoder.decode(authToken));
       if (!user.isDriver) {
         throw AppException(S.current.invalidUser);

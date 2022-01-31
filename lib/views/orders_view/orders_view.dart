@@ -5,6 +5,7 @@ import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/order_edit_bottom_sheet/order_edit_bottom_sheet.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_header/order_header_bloc/order_header_bloc.dart';
@@ -12,15 +13,11 @@ import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order
 import 'package:blush_delivery/views/orders_view/widgets/orders_call_action_sheet.dart';
 import 'package:blush_delivery/views/orders_view/widgets/orders_list_loading.dart';
 import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
-import 'package:blush_delivery/widgets/report_progress.dart';
 import 'package:blush_delivery/widgets/sliver_center.dart';
 import 'package:blush_delivery/widgets/state_switch.dart';
 import 'package:blush_delivery/widgets/text_with_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'widgets/order_header/order_view_header.dart';
 
 class OrdersView extends StatefulWidget {
@@ -31,12 +28,13 @@ class OrdersView extends StatefulWidget {
   _OrdersViewState createState() => _OrdersViewState();
 }
 
-class _OrdersViewState extends State<OrdersView> {
+class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   late final OrdersBloc bloc;
   final listKey = GlobalKey<SliverReorderableListState>();
+  final RestorableOrderState _restorableOrderState = RestorableOrderState();
   @override
   void initState() {
-    bloc = context.read()..add(FetchOrders());
+    bloc = context.read();
     super.initState();
   }
 
@@ -50,12 +48,14 @@ class _OrdersViewState extends State<OrdersView> {
         ),
       ),
       backgroundColor: kcGrayLight,
-      body: BlocBuilder<OrdersBloc, OrdersState>(
+      body: BlocConsumer<OrdersBloc, OrdersState>(
+          listener: handleStateRestoration,
           builder: (_, state) => RefreshIndicator(
                 onRefresh: handleRefresh,
                 color: kcPrimary,
                 displacement: 0.0,
                 child: CustomScrollView(
+                  key: UniqueKey(),
                   slivers: [
                     const OrderViewHeader(),
                     StateSwitch(
@@ -162,5 +162,22 @@ class _OrdersViewState extends State<OrdersView> {
       context: context,
       builder: (_) => OrderNotesSheet(order: order),
     );
+  }
+
+  void handleStateRestoration(BuildContext context, OrdersState state) {
+    _restorableOrderState.value = state;
+  }
+
+  @override
+  String? get restorationId => 'orders_view';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_restorableOrderState, 'orders_view_state');
+    if (_restorableOrderState.value.viewState == StateEnum.idel) {
+      bloc.add(FetchOrders());
+    } else {
+      bloc.add(RestoreState(_restorableOrderState.value));
+    }
   }
 }

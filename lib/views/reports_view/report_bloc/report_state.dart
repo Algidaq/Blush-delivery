@@ -12,7 +12,20 @@ class ReportState extends Equatable {
       this.message = '',
       this.hasReachedLimit = false,
       this.currentPage = 1});
-
+  factory ReportState.fromJson(Map<String, dynamic> json) {
+    var viewState = StateEnum.values[json['viewState'] ?? 0];
+    var message = json['message'] ?? '';
+    var hasReachedLimit = json['hasReachedLimit'] ?? false;
+    var currentPage = json['currentPage'] ?? 0;
+    return ReportState(
+        viewState: viewState,
+        message: message,
+        hasReachedLimit: hasReachedLimit,
+        currentPage: currentPage,
+        reportResModel: json['reportResModel'] == null
+            ? DriverReportResModel()
+            : DriverReportResModel.fromRestoreJson(json['reportResModel']));
+  }
   ReportState copyWith(
           {StateEnum? viewState,
           DriverReportResModel? reportResModel,
@@ -33,4 +46,14 @@ class ReportState extends Equatable {
         hasReachedLimit,
         currentPage,
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'viewState': viewState.index,
+      'reportResModel': reportResModel?.toJson(),
+      'message': message,
+      'hasReachedLimit': hasReachedLimit,
+      'currentPage': currentPage
+    };
+  }
 }

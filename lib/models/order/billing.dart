@@ -27,6 +27,19 @@ class Billing extends Equatable {
       rethrow;
     }
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'firstName': firstName,
+      'lastName': lastName,
+      'address1': address1,
+      'address2': address2,
+      'city': city,
+      'state': state,
+      'primaryPhone': phone,
+      'secondaryPhone': phone2,
+    };
+  }
 
   String get id => _id ?? 'N/A';
   String get firstName => _firstName ?? 'N/A';

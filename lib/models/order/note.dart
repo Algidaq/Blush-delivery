@@ -15,6 +15,11 @@ class Note extends Equatable {
       rethrow;
     }
   }
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'note': note, 'createDate': createDate};
+  }
+
   String get id => _id ?? 'N/A';
   String get note => _note ?? 'N/A';
   String get createDate => _createDate ?? DateTime.now().toString();
@@ -23,8 +28,4 @@ class Note extends Equatable {
 
   @override
   List<Object?> get props => [id, note, createDate];
-
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'note': note, 'createDate': createDate};
-  }
 }

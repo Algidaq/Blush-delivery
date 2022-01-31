@@ -56,6 +56,28 @@ class Order extends Equatable {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'orderId': _orderId,
+      'date': _date,
+      'createDate': _createDate,
+      'customerId': _customerId,
+      'total': _total,
+      'shippingTotal': _shippingTotal,
+      'orderStatus': _orderStatus,
+      'cash': _cash,
+      'mbok': _mbok,
+      'paymentMethod': _paymentMethod,
+      'isVerified': _isVerified,
+      'isNotified': _isNotified,
+      'billing': billing.toJson(),
+      'lineItems': <Map<String, dynamic>>[...products.map((e) => e.toJson())],
+      'notes': <Map<String, dynamic>>[...notes.map((e) => e.toJson())],
+      'receipt': receipt.toJson(),
+    };
+  }
+
   /// returns order id if not exists  or `N/A`
   String get id => _id ?? 'N/A';
 

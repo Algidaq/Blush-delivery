@@ -1,4 +1,5 @@
 import 'package:blush_delivery/models/report.dart';
+import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
@@ -23,6 +24,22 @@ class DriverReportResModel extends Equatable {
     }
   }
 
+  DriverReportResModel.fromRestoreJson(Map<String, dynamic> json) {
+    try {
+      var reportsJson = json['reports'] ?? [];
+      if (reportsJson.isNotEmpty) {
+        for (var report in reportsJson) {
+          reports.add(Report.fromJson(report));
+        }
+      }
+      _pages = json['totalPages'].toString();
+      _count = json['count'].toString();
+    } catch (e) {
+      AppLogger.e(e);
+      rethrow;
+    }
+  }
+
   int get totalPages => int.tryParse(_pages ?? '1') ?? 1;
 
   int get count => int.tryParse(_count ?? '1') ?? 10;
@@ -37,5 +54,9 @@ class DriverReportResModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [reports];
+  List<Object?> get props => [reports, totalPages, count];
+
+  Map<String, dynamic> toJson() {
+    return {'reports': reports, 'totalPages': totalPages, 'count': count};
+  }
 }

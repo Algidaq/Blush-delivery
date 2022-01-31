@@ -15,6 +15,7 @@ part 'login_event.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> with ExceptionMessageExt {
   late final FormGroup formGroup;
   final IAuthService authService;
+
   LoginBloc({required this.authService}) : super(const LoginState()) {
     setFormGroup();
     on<LoginButtonPressed>(login);

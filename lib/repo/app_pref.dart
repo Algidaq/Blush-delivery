@@ -8,11 +8,14 @@ abstract class Pref {
   ThemeMode get preferedTheme;
   Future<bool> setPreferedLocale(Locale preferedLocale);
   Future<bool> setPreferedTheme(ThemeMode themeMode);
+  Future<bool> setUserToken(String token);
+  String? get token;
 }
 
 class AppPref extends Pref {
   static const kLangCodeKey = 'LangCode';
   static const kThemeModeKey = 'ThemeMode';
+  static const kUserTokenKey = 'UserToken';
 
   AppPref(SharedPreferences preferences) : super(preferences);
 
@@ -44,4 +47,12 @@ class AppPref extends Pref {
     var theme = themeMode.index;
     return preferences.setInt(kThemeModeKey, theme);
   }
+
+  @override
+  Future<bool> setUserToken(String token) {
+    return preferences.setString(kUserTokenKey, token);
+  }
+
+  @override
+  String? get token => preferences.getString(kUserTokenKey);
 }

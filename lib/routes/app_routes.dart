@@ -1,5 +1,6 @@
 part of 'app_router.dart';
 
+const kSplashRoute = '/splash-route';
 const kLoginRoute = '/login';
 const kReportsView = '/reports';
 const kOrdersRoute = '/orders';

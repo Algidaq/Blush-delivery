@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:blush_delivery/extensions/exception_ext.dart';
@@ -8,6 +9,7 @@ import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'order_header_state.dart';
 part 'order_header_event.dart';
@@ -25,6 +27,7 @@ class OrderHeaderBloc extends Bloc<OrderHeaderEvent, OrderHeaderState>
           viewState: StateEnum.success,
         )) {
     on<ReloadReport>(handleOnReloadReport);
+    on<RestoreOrderHeader>(handleStateRestoration);
   }
 
   FutureOr<void> handleOnReloadReport(
@@ -44,5 +47,17 @@ class OrderHeaderBloc extends Bloc<OrderHeaderEvent, OrderHeaderState>
       AppLogger.e(message, e);
       emit(state.copyWith(viewState: StateEnum.success));
     }
+  }
+
+  void handleStateRestoration(
+      RestoreOrderHeader event, Emitter<OrderHeaderState> emit) {
+    var viewState = event.state.viewState == StateEnum.busy
+        ? StateEnum.idel
+        : event.state.viewState;
+    emit(state.copyWith(
+      viewState: viewState,
+      report: event.state.report,
+      oldReport: event.state.oldReport,
+    ));
   }
 }

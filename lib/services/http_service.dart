@@ -25,7 +25,7 @@ class HttpService {
   String get token => _token ?? '';
 
   /// sets the Authorization token if any exists
-  set token(String value) {
+  set token(String? value) {
     _token = value;
   }
 }
