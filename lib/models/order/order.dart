@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blush_delivery/enums/payment_method.dart';
 
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -147,6 +149,10 @@ class Order extends Equatable {
   }
 
   bool get isCompleted => orderStatus == 'completed';
+  @override
+  String toString() {
+    return const JsonEncoder().convert(toJson());
+  }
 
   @override
   List<Object?> get props =>

@@ -80,10 +80,13 @@ class _OrderViewHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ReportProgress(
-            progress: report.progress,
-            width: 64.0,
-            height: 64.0,
+          Hero(
+            tag: 'ReportProgress_${report.date}',
+            child: ReportProgress(
+              progress: report.progress,
+              width: 64.0,
+              height: 64.0,
+            ),
           ),
           OrderHeaderItem(
             leadingIcon: Icons.bar_chart_rounded,

@@ -12,7 +12,9 @@ import 'package:shimmer/shimmer.dart';
 
 class OrderHeader extends StatelessWidget {
   final Order order;
-  const OrderHeader({Key? key, required this.order}) : super(key: key);
+  final VoidCallback onReceiptTap;
+  const OrderHeader({Key? key, required this.order, required this.onReceiptTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +32,26 @@ class OrderHeader extends StatelessWidget {
           Visibility(
             visible: order.paymentMethod == PaymentMethod.mbok ||
                 order.paymentMethod == PaymentMethod.cashAndMobk,
-            child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl: order.receipt.src != 'N/A'
-                    ? order.receipt.src
-                    : kImagePlaceHolder,
-                width: 64.0,
-                height: 64.0,
-                fit: BoxFit.cover,
-                placeholder: (_, url) => Shimmer(
-                  child: Container(
-                    color: Colors.white,
+            child: GestureDetector(
+              onTap: onReceiptTap,
+              child: ClipOval(
+                child: Hero(
+                  tag: 'receipt_tag',
+                  child: CachedNetworkImage(
+                    imageUrl: order.receipt.src != 'N/A'
+                        ? order.receipt.src
+                        : kImagePlaceHolder,
+                    width: 64.0,
+                    height: 64.0,
+                    fit: BoxFit.cover,
+                    placeholder: (_, url) => Shimmer(
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                      gradient: const LinearGradient(
+                          colors: [kcGrayDark, Colors.grey, kcGrayLight]),
+                    ),
                   ),
-                  gradient: const LinearGradient(
-                      colors: [kcGrayDark, Colors.grey, kcGrayLight]),
                 ),
               ),
             ),

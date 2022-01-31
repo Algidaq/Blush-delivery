@@ -14,6 +14,7 @@ import 'package:blush_delivery/views/order_view/order_view.dart';
 import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/orders_view.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_header/order_header_bloc/order_header_bloc.dart';
+import 'package:blush_delivery/views/receipt_view/receipt_view.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/views/reports_view/reports_view.dart';
 import 'package:blush_delivery/views/splash_view/splash_view.dart';
@@ -40,6 +41,7 @@ class AppRouter {
 
       case kReportsView:
         return MaterialPageRoute(builder: (_) => const ReportsView());
+
       case kOrdersRoute:
         var report = Report.fromJson(
             const JsonDecoder().convert(settings.arguments.toString()));
@@ -69,6 +71,11 @@ class AppRouter {
           builder: (_) => OrderView(
             order: order,
           ),
+        );
+      case kReceiptRoute:
+        var json = const JsonDecoder().convert(settings.arguments.toString());
+        return MaterialPageRoute(
+          builder: (_) => ReceiptView(receipt: Receipt.fromJson(json)),
         );
       case kMainRoute:
         return MaterialPageRoute(

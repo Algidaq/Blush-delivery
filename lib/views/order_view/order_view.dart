@@ -3,6 +3,7 @@ import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/edit_order_service.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_bloc.dart';
@@ -40,7 +41,7 @@ class _OrderViewState extends State<OrderView> {
       child: Scaffold(
         appBar: AppBar(
           title: AppText.title(
-            'Order ${widget.order.formatedOrder}',
+            'Order',
             color: Colors.white,
           ),
           leading: BlocConsumer<OrderViewBloc, OrderViewState>(
@@ -61,7 +62,10 @@ class _OrderViewState extends State<OrderView> {
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           children: [
-            OrderHeader(order: bloc.state.order),
+            OrderHeader(
+              order: bloc.state.order,
+              onReceiptTap: handleOnReceiptTap,
+            ),
             verticalSpaceSmall,
             ProductsList(order: bloc.state.order),
             verticalSpaceSmall,
@@ -115,5 +119,12 @@ class _OrderViewState extends State<OrderView> {
   void dispose() {
     bloc.close();
     super.dispose();
+  }
+
+  void handleOnReceiptTap() {
+    Navigator.of(context).restorablePushNamed(
+      kReceiptRoute,
+      arguments: bloc.state.order.receipt.toString(),
+    );
   }
 }

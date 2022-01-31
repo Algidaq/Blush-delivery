@@ -46,6 +46,13 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
           '${widget.report.date} ${S.of(context).orders}',
           color: Colors.white,
         ),
+        leading: IconButton(
+          onPressed: handleBackNavigation,
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
       ),
       backgroundColor: kcGrayLight,
       body: BlocConsumer<OrdersBloc, OrdersState>(
@@ -179,5 +186,10 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
     } else {
       bloc.add(RestoreState(_restorableOrderState.value));
     }
+  }
+
+  Future<void> handleBackNavigation() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    Navigator.of(context).pop();
   }
 }
