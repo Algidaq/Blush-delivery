@@ -359,6 +359,246 @@ class S {
       args: [],
     );
   }
+
+  /// `Order`
+  String get order {
+    return Intl.message(
+      'Order',
+      name: 'order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping details`
+  String get shippingDetails {
+    return Intl.message(
+      'Shipping details',
+      name: 'shippingDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add note`
+  String get addNote {
+    return Intl.message(
+      'Add note',
+      name: 'addNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note`
+  String get note {
+    return Intl.message(
+      'Note',
+      name: 'note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SEE ALL`
+  String get seeAll {
+    return Intl.message(
+      'SEE ALL',
+      name: 'seeAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment`
+  String get payment {
+    return Intl.message(
+      'Payment',
+      name: 'payment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proudcts total`
+  String get productTotal {
+    return Intl.message(
+      'Proudcts total',
+      name: 'productTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` SDG`
+  String get sdg {
+    return Intl.message(
+      ' SDG',
+      name: 'sdg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery Fees`
+  String get shipping {
+    return Intl.message(
+      'Delivery Fees',
+      name: 'shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order total`
+  String get orderTotal {
+    return Intl.message(
+      'Order total',
+      name: 'orderTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products`
+  String get products {
+    return Intl.message(
+      'Products',
+      name: 'products',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message(
+      'Dark',
+      name: 'dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get light {
+    return Intl.message(
+      'Light',
+      name: 'light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get eng {
+    return Intl.message(
+      'English',
+      name: 'eng',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get arb {
+    return Intl.message(
+      'Arabic',
+      name: 'arb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to {name}`
+  String switchTo(Object name) {
+    return Intl.message(
+      'Switch to $name',
+      name: 'switchTo',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Switch to light`
+  String get switchToLight {
+    return Intl.message(
+      'Switch to light',
+      name: 'switchToLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to dark`
+  String get switchToDark {
+    return Intl.message(
+      'Switch to dark',
+      name: 'switchToDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to Arabic`
+  String get switchToArb {
+    return Intl.message(
+      'Switch to Arabic',
+      name: 'switchToArb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to English`
+  String get switchToEng {
+    return Intl.message(
+      'Switch to English',
+      name: 'switchToEng',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `logout`
+  String get logout {
+    return Intl.message(
+      'logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Genreal Settings`
+  String get generalSettings {
+    return Intl.message(
+      'Genreal Settings',
+      name: 'generalSettings',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

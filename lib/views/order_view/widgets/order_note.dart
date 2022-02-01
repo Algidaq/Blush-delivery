@@ -2,6 +2,7 @@ import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_input.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_bloc.dart';
 import 'package:flutter/material.dart';
@@ -34,21 +35,20 @@ class OrderNote extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const AppText.subtitle2('Notes'),
+                AppText.subtitle2(S.of(context).notes),
                 GestureDetector(
                   onTap: onSeeAllNotes,
                   child: AppText.button(
-                    'see all'.toUpperCase(),
+                    S.of(context).seeAll.toUpperCase(),
                     color: kcPrimary,
                   ),
                 )
               ],
             ),
             const Divider(),
-            const AppInput(
+            AppInput(
               formControllerName: 'note',
-              label: 'Notes',
-              hint: 'Insert Note for this order',
+              hint: S.of(context).note,
               maxLines: 4,
             ),
             verticalSpaceSmall,
@@ -57,7 +57,7 @@ class OrderNote extends StatelessWidget {
                 bloc: bloc,
                 builder: (context, state) {
                   return AppButton(
-                    'Add Note',
+                    S.of(context).addNote,
                     disabled: form.invalid,
                     onTap: onAddNotes,
                     busy: state.viewState == StateEnum.busy,

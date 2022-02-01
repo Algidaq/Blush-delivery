@@ -1,4 +1,5 @@
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class SettingsSliverAppBar extends StatelessWidget {
@@ -25,12 +26,12 @@ class SettingsSliverAppBar extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 12.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
             child: Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: AppText.title(
-                'Settings',
+                S.of(context).settings,
                 color: Colors.white,
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:blush_delivery/app_bloc.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,8 @@ class OrderNotesSheet extends StatelessWidget {
             itemBuilder: (ctx, index) => index == 0
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: AppText.subtitle('Notes ${order.formatedOrder}'),
+                    child: AppText.subtitle(
+                        '${S.of(context).notes} ${order.formatedOrder}'),
                   )
                 : _OrderNoteBubble(
                     index == 1

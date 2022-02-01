@@ -5,7 +5,6 @@ import 'package:blush_delivery/enums/payment_method.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/utils/utils.dart';
-import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:blush_delivery/extensions/payment_method_ext.dart';
 
@@ -22,23 +21,23 @@ class OrderPayment extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText.subtitle2('Payment'),
+          AppText.subtitle2(S.of(context).payment),
           const Divider(),
           _OrderPaymentNameValue(
-            name: 'Products total',
+            name: S.of(context).productTotal,
             value:
                 formatCurrency((order.total - order.shippingTotal).toDouble()) +
-                    ' SDG',
+                    S.of(context).sdg,
           ),
           verticalSpaceTiny,
           _OrderPaymentNameValue(
-            name: 'Shipping',
-            value: order.formatedShippingTotal + ' SDG',
+            name: S.of(context).shipping,
+            value: order.formatedShippingTotal + S.of(context).sdg,
           ),
           verticalSpaceTiny,
           _OrderPaymentNameValue(
-            name: 'Order total',
-            value: order.formatedTotal + ' SDG',
+            name: S.of(context).shippingDetails,
+            value: order.formatedTotal + S.of(context).sdg,
           ),
           const Divider(),
           if (order.paymentMethod == PaymentMethod.cash ||

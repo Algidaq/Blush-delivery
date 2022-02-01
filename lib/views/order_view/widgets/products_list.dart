@@ -1,5 +1,6 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/views/order_view/widgets/product_item.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class ProductsList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppText.subtitle2('Products'),
+          AppText.subtitle2(S.of(context).products),
           verticalSpaceTiny,
           for (var i = 0; i < order.products.length; i++) ...[
             ProductItem(product: order.products[i]),

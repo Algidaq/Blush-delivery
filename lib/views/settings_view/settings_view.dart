@@ -1,5 +1,6 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/services/auth_service/auth_service.dart';
 import 'package:blush_delivery/views/settings_view/widgets/settings_sliver_app_bar.dart';
 import 'package:blush_delivery/views/settings_view/widgets/settings_tiles.dart';
@@ -38,10 +39,10 @@ class _SettingsViewState extends State<SettingsView> {
           SliverToBoxAdapter(
             child: verticalSpaceRegular,
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
-              child: AppText.subtitle2('General Settings'),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: AppText.subtitle2(S.of(context).generalSettings),
             ),
           ),
           SliverToBoxAdapter(

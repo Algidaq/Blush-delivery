@@ -1,5 +1,4 @@
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
-import 'package:blush_delivery/app_ui/app_widgets/app_button.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
@@ -12,7 +11,6 @@ import 'package:blush_delivery/views/order_view/widgets/order_header.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_note.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_payment.dart';
 import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
-import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order_notes_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +41,7 @@ class _OrderViewState extends State<OrderView> with RestorationMixin {
       child: Scaffold(
         appBar: AppBar(
           title: AppText.title(
-            'Order',
+            S.of(context).order,
             color: Colors.white,
           ),
           leading: BlocConsumer<OrderViewBloc, OrderViewState>(
