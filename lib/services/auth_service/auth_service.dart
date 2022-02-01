@@ -57,7 +57,9 @@ class AuthService extends BaseService implements IAuthService {
   }
 
   @override
-  User? get user => _user;
+  User? get user => super.token.isNotEmpty
+      ? User.fromJson(JwtDecoder.decode(super.token))
+      : null;
 
   @override
   Future<bool> logout() {

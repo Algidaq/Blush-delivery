@@ -121,6 +121,7 @@ class _OrderViewState extends State<OrderView> with RestorationMixin {
   @override
   void dispose() {
     bloc.close();
+    restorableOrderState.dispose();
     super.dispose();
   }
 

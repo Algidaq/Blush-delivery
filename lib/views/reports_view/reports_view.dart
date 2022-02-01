@@ -122,9 +122,10 @@ class _ReportsViewState extends State<ReportsView> with RestorationMixin {
 
   @override
   void dispose() {
-    reportBloc.close();
+    // reportBloc.close();
     _controller.removeListener(handleScroll);
     _controller.dispose();
+    _restorableReportState.dispose();
     super.dispose();
   }
 

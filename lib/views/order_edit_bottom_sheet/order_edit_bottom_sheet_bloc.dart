@@ -211,4 +211,20 @@ class OrderEditBottomSheetBloc extends Cubit<OrderEditBottomSheetState> {
     receiptCont.dispose();
     return super.close();
   }
+
+  Future<void> handleImageFromCamera() async {
+    try {
+      var openCam = await service.permissionService.getCameraPermissionStatus();
+      if (openCam) {
+        var file = await service.imagePickerService.getImageFromCamera();
+        if (file != null) {
+          receiptCont.value = file.name;
+          AppLogger.i('Path ${file.path}');
+          _bytes = await file.readAsBytes();
+        }
+      }
+    } catch (e) {
+      AppLogger.e(e.toString(), e);
+    }
+  }
 }
