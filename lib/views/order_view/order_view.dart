@@ -7,12 +7,12 @@ import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/edit_order_service.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_bloc.dart';
-import 'package:blush_delivery/views/order_view/order_view_bloc/order_view_event.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_billing.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_header.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_note.dart';
 import 'package:blush_delivery/views/order_view/widgets/order_payment.dart';
 import 'package:blush_delivery/views/order_view/widgets/products_list.dart';
+import 'package:blush_delivery/views/orders_view/orders_bloc/orders_bloc.dart';
 import 'package:blush_delivery/views/orders_view/widgets/order_notes_sheet/order_notes_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,17 +25,19 @@ class OrderView extends StatefulWidget {
   State<OrderView> createState() => _OrderViewState();
 }
 
-class _OrderViewState extends State<OrderView> {
+class _OrderViewState extends State<OrderView> with RestorationMixin {
   late final OrderViewBloc bloc;
-
+  late final RestorableOrderState restorableOrderState;
   @override
   void initState() {
     bloc = OrderViewBloc(order: widget.order, service: EditOrderService());
+    restorableOrderState = RestorableOrderState(widget.order);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // OrdersBloc test = context.read();
     return WillPopScope(
       onWillPop: handlePopScope,
       child: Scaffold(
@@ -88,6 +90,8 @@ class _OrderViewState extends State<OrderView> {
     showModalBottomSheet(
       enableDrag: true,
       backgroundColor: Colors.transparent,
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 104.0),
       context: context,
       builder: (_) => OrderNotesSheet(order: bloc.state.order),
     );
@@ -105,6 +109,7 @@ class _OrderViewState extends State<OrderView> {
           content: AppText.body2(state.message),
         ));
     }
+    restorableOrderState.value = state;
   }
 
   void handleNavigationBack() {
@@ -126,5 +131,14 @@ class _OrderViewState extends State<OrderView> {
       kReceiptRoute,
       arguments: bloc.state.order.receipt.toString(),
     );
+  }
+
+  @override
+  String? get restorationId => 'order_view';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(restorableOrderState, 'order_view_state');
+    if (oldBucket != null && oldBucket.contains('order_view_state')) {}
   }
 }

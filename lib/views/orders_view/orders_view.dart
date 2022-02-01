@@ -31,10 +31,16 @@ class OrdersView extends StatefulWidget {
 class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   late final OrdersBloc bloc;
   final listKey = GlobalKey<SliverReorderableListState>();
-  final RestorableOrderState _restorableOrderState = RestorableOrderState();
+  final RestorableOrdersState _restorableOrderState = RestorableOrdersState();
+  late final RestorableRouteFuture<Order?> _restorableOrderRoute;
   @override
   void initState() {
     bloc = context.read();
+    _restorableOrderRoute = RestorableRouteFuture<Order?>(
+      onPresent: (navigator, arguments) =>
+          navigator.restorablePushNamed(kOrderRoute, arguments: arguments),
+      onComplete: handleEditComplete,
+    );
     super.initState();
   }
 
@@ -125,9 +131,9 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   void handleOrderLongPress(Order order) {}
 
   Future<void> handleOrderTap(Order order) async {
-    var updatedOrder =
-        await Navigator.of(context).pushNamed(kOrderRoute, arguments: order);
-    bloc.add(EditOrder(updatedOrder as Order));
+    _restorableOrderRoute.present(order.toString());
+
+    // RestorableRouteFuture<Order>(onPresent: (navigator,arguments)=>navigator.restorablePushNamed(k))
   }
 
   Future<void> handleOrderEdit(Order order) async {
@@ -183,6 +189,8 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
     registerForRestoration(_restorableOrderState, 'orders_view_state');
+    registerForRestoration(
+        _restorableOrderRoute, 'order_view_restorable_route');
     if (_restorableOrderState.value.viewState == StateEnum.idel) {
       bloc.add(FetchOrders());
     } else {
@@ -193,5 +201,17 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   Future<void> handleBackNavigation() async {
     await Future.delayed(const Duration(milliseconds: 100));
     Navigator.of(context).pop();
+  }
+
+  void handleEditComplete(Order? result) {
+    AppLogger.i('update order state');
+    bloc.add(EditOrder(result!));
+  }
+
+  @override
+  void dispose() {
+    _restorableOrderRoute.dispose();
+    _restorableOrderState.dispose();
+    super.dispose();
   }
 }

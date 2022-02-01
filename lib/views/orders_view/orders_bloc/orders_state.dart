@@ -39,7 +39,7 @@ class OrdersState extends Equatable {
   List<Object?> get props => [viewState, orders, message];
 }
 
-class RestorableOrderState extends RestorableValue<OrdersState> {
+class RestorableOrdersState extends RestorableValue<OrdersState> {
   @override
   OrdersState createDefaultValue() => const OrdersState();
 

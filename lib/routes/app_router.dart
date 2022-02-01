@@ -72,9 +72,10 @@ class AppRouter {
                 ));
 
       case kOrderRoute:
-        var order = (settings.arguments as Order?) ??
-            Order.fromJson(AppMocks.kOrderMock);
-        return MaterialPageRoute(
+        var order = Order.fromJson(
+          const JsonDecoder().convert(settings.arguments.toString()),
+        );
+        return MaterialPageRoute<Order?>(
           builder: (_) => OrderView(
             order: order,
           ),
