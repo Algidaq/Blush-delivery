@@ -41,79 +41,81 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: AppText.title(
-          '${widget.report.date} ${S.of(context).orders}',
-          color: Colors.white,
-        ),
-        leading: IconButton(
-          onPressed: handleBackNavigation,
-          icon: const Icon(
-            Icons.arrow_back_ios,
+        appBar: AppBar(
+          title: AppText.title(
+            '${widget.report.date} ${S.of(context).orders}',
             color: Colors.white,
           ),
+          actions: [kwSettingsIcon],
+          leading: IconButton(
+            onPressed: handleBackNavigation,
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+          ),
         ),
-      ),
-      backgroundColor: kcGrayLight,
-      body: BlocConsumer<OrdersBloc, OrdersState>(
-          listener: handleStateRestoration,
-          builder: (_, state) => RefreshIndicator(
-                onRefresh: handleRefresh,
-                color: kcPrimary,
-                displacement: 0.0,
-                child: CustomScrollView(
-                  key: UniqueKey(),
-                  slivers: [
-                    const OrderViewHeader(),
-                    StateSwitch(
-                      viewState: state.viewState,
-                      busy: const OrdersListLoading(),
-                      success: SliverReorderableList(
-                        key: listKey,
-                        itemBuilder: (__, index) =>
-                            ReorderableDragStartListener(
-                          index: index,
-                          key: ValueKey<int>(index),
-                          child: OrderListTile(
-                            key: ValueKey<String>(state.orders[index].id),
+        backgroundColor: kcGrayLight,
+        body: RefreshIndicator(
+          onRefresh: handleRefresh,
+          color: kcPrimary,
+          displacement: 0.0,
+          child: CustomScrollView(
+            key: UniqueKey(),
+            slivers: [
+              const OrderViewHeader(),
+              BlocConsumer<OrdersBloc, OrdersState>(
+                listener: handleStateRestoration,
+                builder: (_, state) {
+                  return StateSwitch(
+                    viewState: state.viewState,
+                    busy: const OrdersListLoading(),
+                    success: SliverReorderableList(
+                      key: listKey,
+                      itemBuilder: (__, index) => ReorderableDragStartListener(
+                        index: index,
+                        key: ValueKey<int>(index),
+                        child: OrderListTile(
+                          key: ValueKey<String>(state.orders[index].id),
 
-                            order: state.orders[index],
-                            onEdit: handleOrderEdit,
-                            // onLongPressed: handleOrderLongPress,
-                            onTap: handleOrderTap,
-                            onCall: handleCall,
-                            onNotes: showNotesBottomSheet,
-                            onNotifie: bloc.notifieCustomer,
-                          ),
-                        ),
-                        itemCount: state.orders.length,
-                        onReorder: handleReorder,
-                        // itemExtent: 104.0,
-                      ),
-                      error: SliverCenter(
-                        padding: const EdgeInsets.only(
-                            left: 16.0, right: 16.0, bottom: 104.0),
-                        child: TextWithButton(
-                          text: state.message,
-                          buttonText: S.of(_).reload,
-                          textColor: Colors.red,
-                          onTap: handleRefresh,
+                          order: state.orders[index],
+                          onEdit: handleOrderEdit,
+                          // onLongPressed: handleOrderLongPress,
+                          onTap: handleOrderTap,
+                          onCall: handleCall,
+                          onNotes: showNotesBottomSheet,
+                          onNotifie: bloc.notifieCustomer,
                         ),
                       ),
-                      idel: SliverCenter(
-                        padding: const EdgeInsets.only(
-                            left: 16.0, right: 16.0, bottom: 104.0),
-                        child: TextWithButton(
-                          text: S.of(_).noOrders,
-                          buttonText: S.of(_).reload,
-                          onTap: handleRefresh,
-                        ),
+                      itemCount: state.orders.length,
+                      onReorder: handleReorder,
+                      // itemExtent: 104.0,
+                    ),
+                    error: SliverCenter(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, bottom: 104.0),
+                      child: TextWithButton(
+                        text: state.message,
+                        buttonText: S.of(_).reload,
+                        textColor: Colors.red,
+                        onTap: handleRefresh,
                       ),
                     ),
-                  ],
-                ),
-              )),
-    );
+                    idel: SliverCenter(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, bottom: 104.0),
+                      child: TextWithButton(
+                        text: S.of(_).noOrders,
+                        buttonText: S.of(_).reload,
+                        onTap: handleRefresh,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ));
   }
 
   Future<void> handleRefresh() async {

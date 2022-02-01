@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = AppRouter();
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AppPref>(
@@ -83,6 +84,7 @@ class MyApp extends StatelessWidget {
                       // darkTheme: ThemeData(backgroundColor: Colors.black),
                       onGenerateRoute: router.onGenerateRoute,
                       initialRoute: kSplashRoute,
+                      navigatorKey: AppRouter.navigatorState,
                       navigatorObservers: [AppRouterObserver()],
                       // onGenerateInitialRoutes: router.onGenerateInitialRoute,
                       // home: BlocProvider<LoginBloc>(

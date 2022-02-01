@@ -17,6 +17,7 @@ import 'package:blush_delivery/views/orders_view/widgets/order_header/order_head
 import 'package:blush_delivery/views/receipt_view/receipt_view.dart';
 import 'package:blush_delivery/views/reports_view/report_bloc/report_bloc.dart';
 import 'package:blush_delivery/views/reports_view/reports_view.dart';
+import 'package:blush_delivery/views/settings_view/settings_view.dart';
 import 'package:blush_delivery/views/splash_view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'app_routes.dart';
 
 class AppRouter {
+  static GlobalKey<NavigatorState> navigatorState = GlobalKey<NavigatorState>();
+  static void logout() {
+    navigatorState.currentState?.restorablePushNamedAndRemoveUntil(
+        kLoginRoute, (route) => route.settings.name == kLoginRoute);
+  }
+
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case kSplashRoute:
@@ -85,6 +92,8 @@ class AppRouter {
           ),
           // settings: settings,
         );
+      case kSettingsRoute:
+        return MaterialPageRoute(builder: (_) => const SettingsView());
     }
   }
 

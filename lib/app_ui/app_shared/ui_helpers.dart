@@ -44,3 +44,13 @@ double screenHeightPercentage(BuildContext context, {double percentage = 1}) =>
 
 double screenWidthPercentage(BuildContext context, {double percentage = 1}) =>
     screenWidth(context) * percentage;
+
+Widget kwSettingsIcon = Builder(
+  builder: (context) => IconButton(
+    onPressed: () => Navigator.pushNamed(context, kSettingsRoute),
+    icon: const Icon(
+      Icons.settings,
+      color: Colors.white,
+    ),
+  ),
+);

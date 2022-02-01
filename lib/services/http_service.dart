@@ -1,3 +1,4 @@
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:dio/dio.dart';
 
@@ -50,12 +51,17 @@ class _BaseDioInterceptors extends Interceptor {
       response.headers,
       response.statusCode
     ]}');
+
     handler.next(response);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     AppLogger.e('OnRequest Error', err, err.stackTrace);
+    if (err.type == DioErrorType.response && err.response?.statusCode == 401) {
+      AppRouter.logout();
+      return;
+    }
     handler.next(err);
   }
 }

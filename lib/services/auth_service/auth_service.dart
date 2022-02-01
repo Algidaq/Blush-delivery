@@ -14,6 +14,7 @@ abstract class IAuthService {
   Future<User> login(AuthServiceReqModel reqmodel);
   set user(User? user);
   User? get user;
+  Future<bool> logout();
 }
 
 class AuthService extends BaseService implements IAuthService {
@@ -23,7 +24,11 @@ class AuthService extends BaseService implements IAuthService {
   final StreamController<User> _userController = StreamController<User>();
   @override
   Pref pref;
-  AuthService(this.pref);
+  AuthService(this.pref) {
+    if (super.token.isNotEmpty) {
+      _user = User.fromJson(JwtDecoder.decode(super.token));
+    }
+  }
 
   /// login user to server with password and phone number
   @override
@@ -53,4 +58,9 @@ class AuthService extends BaseService implements IAuthService {
 
   @override
   User? get user => _user;
+
+  @override
+  Future<bool> logout() {
+    return pref.removeUser();
+  }
 }

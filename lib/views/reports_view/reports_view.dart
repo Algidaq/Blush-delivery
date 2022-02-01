@@ -41,6 +41,7 @@ class _ReportsViewState extends State<ReportsView> with RestorationMixin {
     return Scaffold(
         appBar: AppBar(
           title: AppText.title(S.of(context).reports, color: Colors.white),
+          actions: [kwSettingsIcon],
         ),
         backgroundColor: kcGrayLight,
         body: RefreshIndicator(

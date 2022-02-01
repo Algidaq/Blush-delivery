@@ -1,3 +1,4 @@
+import 'package:blush_delivery/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
@@ -29,6 +30,7 @@ class User extends Equatable {
 
   ///returns user ``lastName`` or N/A
   String get lastName => _lastName ?? 'N/A';
+  String get fullName => firstName + ' ' + lastName;
 
   /// returns user ``phoneNumber`` or 'N/A'
   String get phone => _phone ?? 'N/A';
@@ -40,7 +42,7 @@ class User extends Equatable {
   /// otherise returns ``false``
   bool get isDriver => role == 'driver';
 
-  String get profileImage => _profileImage ?? 'N/A';
+  String get profileImage => _profileImage ?? kImagePlaceHolder;
 
   @override
   List<Object?> get props => [id];

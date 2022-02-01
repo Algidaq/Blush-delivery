@@ -9,6 +9,7 @@ abstract class Pref {
   Future<bool> setPreferedLocale(Locale preferedLocale);
   Future<bool> setPreferedTheme(ThemeMode themeMode);
   Future<bool> setUserToken(String token);
+  Future<bool> removeUser();
   String? get token;
 }
 
@@ -55,4 +56,9 @@ class AppPref extends Pref {
 
   @override
   String? get token => preferences.getString(kUserTokenKey);
+
+  @override
+  Future<bool> removeUser() {
+    return preferences.remove(kUserTokenKey);
+  }
 }

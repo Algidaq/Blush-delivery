@@ -35,4 +35,6 @@ abstract class BaseService {
   set token(String value) {
     _httpService.token = value;
   }
+
+  String get token => _httpService.token;
 }

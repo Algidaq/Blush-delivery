@@ -8,3 +8,4 @@ const kOrderCallRoute = '$kOrdersRoute/call';
 const kReceiptRoute = '/receipt';
 const kOrderRoute = '/order';
 const kMainRoute = '/main';
+const kSettingsRoute = '/settings';
