@@ -43,7 +43,7 @@ class OrderBilling extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.body2(order.billing.phone),
+                AppText.body2(phones[i]),
                 horizontalSpaceTiny,
                 SizedBox(
                   height: 16.0,

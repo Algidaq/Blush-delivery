@@ -125,6 +125,10 @@ class Order extends Equatable {
 
   String get orderStatus => _orderStatus ?? 'processing';
 
+  /// returns the address of the user
+  String get fullAddress =>
+      '${billing.state} ${billing.city} ${billing.address1}';
+
   // int get _paymentMethod => _paymentMethod ?? -1;
   PaymentMethod get paymentMethod {
     switch (_paymentMethod) {

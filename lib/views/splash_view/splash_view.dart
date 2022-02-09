@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> with RestorationMixin {
       color: Colors.white,
       alignment: Alignment.center,
       child: AnimatedOpacity(
-        opacity: 1.0,
+        opacity: 0.3,
         curve: Curves.easeInOut,
         duration: const Duration(seconds: 2),
         child: Image.asset(

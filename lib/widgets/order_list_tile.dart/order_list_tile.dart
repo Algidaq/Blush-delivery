@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
+import 'package:blush_delivery/extensions/payment_method_ext.dart';
 import 'package:blush_delivery/generated/l10n.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/typedef/typedef.dart';
@@ -95,15 +97,27 @@ class OrderListTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 OrderStatusChip(orderStatus: order.orderStatus),
+                if (order.isCompleted) horizontalSpaceTiny,
+                if (order.isCompleted)
+                  OrderStatusChip(
+                      orderStatus: order.paymentMethod.title(S.of(context))),
                 horizontalSpaceSmall,
-                AppText.caption(
-                  order.billing.city.substring(
-                    0,
-                    order.billing.city.length >= 54
-                        ? 54
-                        : order.billing.city.length,
+                Expanded(
+                  flex: 1,
+                  child: AutoSizeText(
+                    order.fullAddress.substring(
+                      0,
+                      order.fullAddress.length >= 48
+                          ? 48
+                          : order.fullAddress.length,
+                    ),
+                    style: Theme.of(context).textTheme.caption,
+                    minFontSize: 11,
+                    maxFontSize: 12,
+                    maxLines: 1,
+                    wrapWords: false,
                   ),
-                ),
+                )
               ],
             ),
           ),

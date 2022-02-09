@@ -45,13 +45,13 @@ class OrdersCallActionSheet extends StatelessWidget {
                   ListTile(
                     title: AppText.subtitle(S.of(context).secondaryPhone),
                     subtitle: AppText.body2(
-                      billing.phone,
+                      billing.phone2,
                       color: Colors.grey,
                     ),
                     trailing: const Icon(
                       Icons.phone,
                     ),
-                    onTap: () => handleLaunch(billing.phone, context),
+                    onTap: () => handleLaunch(billing.phone2, context),
                   )
                 ]),
           ),

@@ -29,9 +29,21 @@ class _SettingsViewState extends State<SettingsView> {
     const padding = EdgeInsets.symmetric(horizontal: 16.0);
     return Scaffold(
       backgroundColor: kcGrayDark,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: handleBackNavigation,
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
+        title: AppText.title(
+          S.of(context).settings,
+          color: Colors.white,
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
-          SettingsSliverAppBar(onBack: handleBackNavigation),
           SliverToBoxAdapter(
             child: verticalSpaceRegular,
           ),

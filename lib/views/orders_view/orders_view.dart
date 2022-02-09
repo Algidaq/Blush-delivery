@@ -16,6 +16,7 @@ import 'package:blush_delivery/widgets/order_list_tile.dart/order_list_tile.dart
 import 'package:blush_delivery/widgets/sliver_center.dart';
 import 'package:blush_delivery/widgets/state_switch.dart';
 import 'package:blush_delivery/widgets/text_with_button.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widgets/order_header/order_view_header.dart';
@@ -68,6 +69,7 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
           displacement: 0.0,
           child: CustomScrollView(
             key: UniqueKey(),
+            dragStartBehavior: DragStartBehavior.down,
             slivers: [
               const OrderViewHeader(),
               BlocConsumer<OrdersBloc, OrdersState>(
@@ -78,7 +80,9 @@ class _OrdersViewState extends State<OrdersView> with RestorationMixin {
                     busy: const OrdersListLoading(),
                     success: SliverReorderableList(
                       key: listKey,
-                      itemBuilder: (__, index) => ReorderableDragStartListener(
+
+                      itemBuilder: (__, index) =>
+                          ReorderableDelayedDragStartListener(
                         index: index,
                         key: ValueKey<int>(index),
                         child: OrderListTile(
