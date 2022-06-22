@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:blush_delivery/repo/app_pref.dart';
 import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/services/http_service.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashView extends StatefulWidget {
@@ -13,8 +16,11 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> with RestorationMixin {
+  double _opacity = 0.0;
+  late final Timer timer;
   @override
   void initState() {
+    timer = Timer.periodic(const Duration(milliseconds: 500), updateOpacity);
     setup();
     super.initState();
   }
@@ -25,7 +31,7 @@ class _SplashViewState extends State<SplashView> with RestorationMixin {
       color: Colors.white,
       alignment: Alignment.center,
       child: AnimatedOpacity(
-        opacity: 0.3,
+        opacity: _opacity,
         curve: Curves.easeInOut,
         duration: const Duration(seconds: 2),
         child: Image.asset(
@@ -53,4 +59,19 @@ class _SplashViewState extends State<SplashView> with RestorationMixin {
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {}
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  void updateOpacity(Timer timer) {
+    if (_opacity != 1) {
+      setState(() {
+        _opacity += 0.25;
+      });
+    } else {
+      timer.cancel();
+    }
+  }
 }

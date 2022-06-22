@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
                         GlobalCupertinoLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                       ],
+                      title: 'Blush Delivery',
                       restorationScopeId: 'blush_delivery',
                       theme: kLightThemeData,
                       locale: state.locale,
