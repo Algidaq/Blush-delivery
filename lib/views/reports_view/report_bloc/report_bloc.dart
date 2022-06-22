@@ -8,6 +8,7 @@ import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_resmodel.dart';
 import 'package:blush_delivery/services/driver_report_service/driver_report_reqmodel.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
+import 'package:dio/dio.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
@@ -31,6 +32,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState>
     on<LoadReports>(handleLoadReports,
         transformer: throttleDroppable(throttleDuration));
     on<UpdateReport>(handleUpdateReport);
+    on<RestoreState>(handleStateRestoreation);
   }
 
   FutureOr<void> handleReloadReports(
@@ -101,5 +103,14 @@ class ReportBloc extends Bloc<ReportEvent, ReportState>
     reports[index] = event.newReport;
     emit(state.copyWith(
         reportResModel: state.reportResModel!.copyWith(reports: reports)));
+  }
+
+  void handleStateRestoreation(RestoreState event, Emitter<ReportState> emit) {
+    emit(state.copyWith(
+        viewState: event.reportState.viewState,
+        reportResModel: event.reportState.reportResModel,
+        hasReachedLimit: event.reportState.hasReachedLimit,
+        currentPage: event.reportState.currentPage,
+        message: event.reportState.message));
   }
 }

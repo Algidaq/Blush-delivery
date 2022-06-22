@@ -29,7 +29,7 @@ class AppState extends Equatable {
 }
 
 class AppBloc extends Bloc<AppEvents, AppState> {
-  final AppPref appPref;
+  final Pref appPref;
   AppBloc(this.appPref)
       : super(
           AppState(

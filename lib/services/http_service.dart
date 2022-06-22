@@ -1,3 +1,4 @@
+import 'package:blush_delivery/routes/app_router.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:dio/dio.dart';
 
@@ -5,7 +6,7 @@ class HttpService {
   String? _token;
   late final Dio dio;
   HttpService._() {
-    dio = Dio(BaseOptions(baseUrl: 'http://192.168.43.13:3001/api'));
+    dio = Dio(BaseOptions(baseUrl: 'https://acc.blush-sd.com/blush-ops/api'));
     dio.interceptors.add(_BaseDioInterceptors());
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
@@ -25,7 +26,7 @@ class HttpService {
   String get token => _token ?? '';
 
   /// sets the Authorization token if any exists
-  set token(String value) {
+  set token(String? value) {
     _token = value;
   }
 }
@@ -50,12 +51,17 @@ class _BaseDioInterceptors extends Interceptor {
       response.headers,
       response.statusCode
     ]}');
+
     handler.next(response);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     AppLogger.e('OnRequest Error', err, err.stackTrace);
+    if (err.type == DioErrorType.response && err.response?.statusCode == 401) {
+      AppRouter.logout();
+      return;
+    }
     handler.next(err);
   }
 }

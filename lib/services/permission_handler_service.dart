@@ -18,4 +18,21 @@ class PermissionHandlerService implements IPermissionHandlerService {
     var status = await Permission.storage.request();
     return status.isGranted;
   }
+
+  @override
+  Future<bool> getCameraPermissionStatus() async {
+    var status = await Permission.storage.status;
+    if (status.isDenied) {
+      var value = await requestStoragePermissionStatus();
+      return value;
+    } else {
+      return true;
+    }
+  }
+
+  @override
+  Future<bool> requestCameraPermissionStatus() async {
+    var status = await Permission.camera.request();
+    return status.isGranted;
+  }
 }

@@ -38,7 +38,7 @@ class OrderEditForm extends StatelessWidget {
             inputType: TextInputType.none,
             onTap: bloc.handleImagePicker,
             trailingIcon: IconButton(
-              onPressed: bloc.handleImagePicker,
+              onPressed: bloc.handleImageFromCamera,
               icon: const Icon(
                 Icons.camera_alt_rounded,
                 color: kcPrimary,

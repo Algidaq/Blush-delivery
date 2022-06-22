@@ -25,6 +25,17 @@ class Product extends Equatable {
       rethrow;
     }
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'productId': productId,
+      'varationId': varationId,
+      'total': total,
+      'productPrice': _productPrice,
+      'productImage': _productImage
+    };
+  }
 
   String get id => _id ?? 'N/A';
   String get name => _name ?? 'N/A';
@@ -32,6 +43,7 @@ class Product extends Equatable {
   int get varationId => _varationId ?? -1;
   int get quantity => _quantity ?? -1;
   double get total => _total?.toDouble() ?? 0.0;
+  String get fromatedTotal => formatCurrency(total) + ' SDG';
   double get price => _productPrice?.toDouble() ?? 0.0;
   String get foramtedPrice => formatCurrency(price);
   String get image => _productImage ?? kImagePlaceHolder;

@@ -14,3 +14,8 @@ class EditOrder extends OrdersEvent {
   final Order order;
   EditOrder(this.order);
 }
+
+class RestoreState extends OrdersEvent {
+  final OrdersState orderState;
+  RestoreState(this.orderState);
+}

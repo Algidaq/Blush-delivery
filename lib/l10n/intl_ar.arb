@@ -29,7 +29,30 @@
     "total":"إلاجمالي",
     "receipt":"الإشعار",
     "selectImagePath":"اختر الاشعار من الاستوديو او او صوره",
-    "update":"تحديث"
-
+    "update":"تحديث",
+    "order":"طلبية",
+    "shippingDetails":"معلومات السكن",
+    "message":"رسالة",
+    "addNote":"إضافة  ملاحظه",
+    "note":"ملاحظة",
+    "seeAll":"عرض الكل",
+    "payment":"الدفع",
+    "productTotal":"إجممالي المنتجات",
+    "sdg":"ج.س ",
+    "shipping":"سعر التوصيل",
+    "orderTotal":"إجمالي الطلبية",
+    "products":"المنتجات",
+    "settings":"الإعدادت",
+    "dark":"Dark",
+    "light":"Light",
+    "eng":"English",
+    "arb":"Arabic",
+    "switchTo":"Switch to {name}",
+    "switchToLight":"تفيعل الوضع العادي",
+    "switchToDark":"تفعيل الوضع الليلي",
+    "switchToArb":"اللغة العربية",
+    "switchToEng":"اللغة الانجليزيه",
+    "logout":"تسجيل الخروج",
+    "generalSettings":"الاعدادت العامة"
 
 }

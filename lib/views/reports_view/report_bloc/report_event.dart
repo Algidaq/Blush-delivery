@@ -13,3 +13,8 @@ class UpdateReport extends ReportEvent {
   final Report oldReport;
   UpdateReport({required this.newReport, required this.oldReport});
 }
+
+class RestoreState extends ReportEvent {
+  final ReportState reportState;
+  RestoreState(this.reportState);
+}

@@ -14,11 +14,16 @@ class Receipt extends Equatable {
   }
 
   String get id => _id ?? 'N/A';
-  String get src => _src ?? 'N/A';
+  String get src => _src == null ? 'N/A' : kAppUrl + _src!;
   @override
   List<Object?> get props => [id, src];
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'src': src};
+    return {'id': id, 'src': _src};
+  }
+
+  @override
+  String toString() {
+    return const JsonEncoder().convert(toJson());
   }
 }

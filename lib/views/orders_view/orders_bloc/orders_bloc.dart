@@ -1,13 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:blush_delivery/extensions/exception_ext.dart';
-import 'package:blush_delivery/interfaces/i_driver_report_service.dart';
 import 'package:blush_delivery/interfaces/i_report_orders_service.dart';
 import 'package:blush_delivery/models/order/order.dart';
 import 'package:blush_delivery/models/report.dart';
 import 'package:blush_delivery/utils/app_logger.dart';
 import 'package:blush_delivery/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'orders_state.dart';
@@ -22,6 +23,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
     on<FetchOrders>(handleFetchOrders);
     on<ReorderOrder>(handleReorderOrder);
     on<EditOrder>(handleEditOrder);
+    on<RestoreState>(handleStateRestoration);
   }
 
   FutureOr<void> handleFetchOrders(
@@ -66,5 +68,12 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState>
     } catch (e) {
       AppLogger.e(e);
     }
+  }
+
+  void handleStateRestoration(RestoreState event, Emitter<OrdersState> emit) {
+    emit(state.copyWith(
+        viewState: event.orderState.viewState,
+        message: event.orderState.message,
+        orders: event.orderState.orders));
   }
 }

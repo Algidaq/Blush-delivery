@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blush_delivery/enums/payment_method.dart';
 
 import 'package:blush_delivery/utils/app_logger.dart';
@@ -56,6 +58,28 @@ class Order extends Equatable {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'orderId': _orderId,
+      'date': _date,
+      'createDate': _createDate,
+      'customerId': _customerId,
+      'total': _total,
+      'shippingTotal': _shippingTotal,
+      'orderStatus': _orderStatus,
+      'cash': _cash,
+      'mbok': _mbok,
+      'paymentMethod': _paymentMethod,
+      'isVerified': _isVerified,
+      'isNotified': _isNotified,
+      'billing': billing.toJson(),
+      'lineItems': <Map<String, dynamic>>[...products.map((e) => e.toJson())],
+      'notes': <Map<String, dynamic>>[...notes.map((e) => e.toJson())],
+      'receipt': receipt.toJson(),
+    };
+  }
+
   /// returns order id if not exists  or `N/A`
   String get id => _id ?? 'N/A';
 
@@ -69,7 +93,7 @@ class Order extends Equatable {
   String get reportDate => _date ?? 'N/A';
 
   /// returns woo-order createDate formated as DayDay-MMM
-  String get createDate => DateFormat('dd-MMM')
+  String get createDate => DateFormat('dd-MMM-yyyy')
       .format(DateTime.parse(_createDate ?? DateTime.now().toString()));
 
   /// returns customer id or -1
@@ -101,6 +125,10 @@ class Order extends Equatable {
 
   String get orderStatus => _orderStatus ?? 'processing';
 
+  /// returns the address of the user
+  String get fullAddress =>
+      '${billing.state} ${billing.city} ${billing.address1}';
+
   // int get _paymentMethod => _paymentMethod ?? -1;
   PaymentMethod get paymentMethod {
     switch (_paymentMethod) {
@@ -125,8 +153,12 @@ class Order extends Equatable {
   }
 
   bool get isCompleted => orderStatus == 'completed';
+  @override
+  String toString() {
+    return const JsonEncoder().convert(toJson());
+  }
 
   @override
   List<Object?> get props =>
-      [id, paymentMethod, orderStatus, cash, mbok, receipt, isNotified];
+      [id, paymentMethod, orderStatus, cash, mbok, receipt, isNotified, notes];
 }

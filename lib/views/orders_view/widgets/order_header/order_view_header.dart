@@ -11,10 +11,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'order_view_header_item.dart';
 
-class OrderViewHeader extends StatelessWidget {
+class OrderViewHeader extends StatefulWidget {
   const OrderViewHeader({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<OrderViewHeader> createState() => _OrderViewHeaderState();
+}
+
+class _OrderViewHeaderState extends State<OrderViewHeader>
+    with RestorationMixin {
+  late final RestorableOrderHeaderState _restorableOrderHeaderState;
+  late final OrderHeaderBloc bloc;
+  @override
+  void initState() {
+    bloc = context.read<OrderHeaderBloc>();
+    _restorableOrderHeaderState = RestorableOrderHeaderState(bloc.state.report);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +48,20 @@ class OrderViewHeader extends StatelessWidget {
 
   void handleListener(BuildContext context, OrderHeaderState state) {
     if (state.viewState == StateEnum.success) {
+      _restorableOrderHeaderState.value = state;
       context.read<ReportBloc>().add(
           UpdateReport(newReport: state.report, oldReport: state.oldReport));
+    }
+  }
+
+  @override
+  String? get restorationId => 'order_header_widget';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_restorableOrderHeaderState, 'order_heade_state');
+    if (_restorableOrderHeaderState.value != bloc.state) {
+      bloc.add(RestoreOrderHeader(_restorableOrderHeaderState.value));
     }
   }
 }
@@ -53,10 +80,13 @@ class _OrderViewHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ReportProgress(
-            progress: report.progress,
-            width: 64.0,
-            height: 64.0,
+          Hero(
+            tag: 'ReportProgress_${report.date}',
+            child: ReportProgress(
+              progress: report.progress,
+              width: 64.0,
+              height: 64.0,
+            ),
           ),
           OrderHeaderItem(
             leadingIcon: Icons.bar_chart_rounded,

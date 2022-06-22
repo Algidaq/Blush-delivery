@@ -55,4 +55,18 @@ class Report extends Equatable {
         completedOrders,
         incompleteOrders,
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'date': _date,
+      'totalOrders': _totalOrders,
+      'totalCash': _totalCash,
+      'totalMbok': _totalMbok,
+      'total': _total,
+      'completedOrders': _completedOrders,
+      'incompletedOrders': _incompletedOrders,
+      'shippingTotal': _shippingTotal,
+      'isVerified': _isVerified
+    };
+  }
 }

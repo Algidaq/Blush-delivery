@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blush_delivery/app_ui/app_shared/app_shared.dart';
 import 'package:blush_delivery/app_ui/app_widgets/app_text.dart';
 import 'package:blush_delivery/generated/l10n.dart';
@@ -22,12 +24,13 @@ class ReportsView extends StatefulWidget {
   _ReportsViewState createState() => _ReportsViewState();
 }
 
-class _ReportsViewState extends State<ReportsView> {
+class _ReportsViewState extends State<ReportsView> with RestorationMixin {
   late final ReportBloc reportBloc;
   late final ScrollController _controller;
+  final RestorableReportState _restorableReportState = RestorableReportState();
   @override
   void initState() {
-    reportBloc = context.read()..add(ReloadReports());
+    reportBloc = context.read();
     _controller = ScrollController();
     _controller.addListener(handleScroll);
     super.initState();
@@ -38,6 +41,7 @@ class _ReportsViewState extends State<ReportsView> {
     return Scaffold(
         appBar: AppBar(
           title: AppText.title(S.of(context).reports, color: Colors.white),
+          actions: [kwSettingsIcon],
         ),
         backgroundColor: kcGrayLight,
         body: RefreshIndicator(
@@ -112,13 +116,16 @@ class _ReportsViewState extends State<ReportsView> {
         ));
   }
 
-  void handleNavigation(BuildContext context, state) {}
+  void handleNavigation(BuildContext context, ReportState state) {
+    _restorableReportState.value = state;
+  }
 
   @override
   void dispose() {
-    reportBloc.close();
+    // reportBloc.close();
     _controller.removeListener(handleScroll);
     _controller.dispose();
+    _restorableReportState.dispose();
     super.dispose();
   }
 
@@ -145,6 +152,52 @@ class _ReportsViewState extends State<ReportsView> {
   }
 
   void handleReportTap(Report report) {
-    Navigator.of(context).pushNamed(kOrdersRoute, arguments: report);
+    Navigator.of(context).restorablePushNamed(kOrdersRoute,
+        arguments: const JsonEncoder().convert(report.toJson()));
+  }
+
+  @override
+  String? get restorationId => 'reports_view';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_restorableReportState, 'reportState');
+    AppLogger.i('Restore ${_restorableReportState.value}');
+    if (_restorableReportState.value.viewState == StateEnum.busy) {
+      reportBloc.add(ReloadReports());
+    } else {
+      reportBloc.add(RestoreState(_restorableReportState.value));
+    }
+  }
+}
+
+class RestorableReportState extends RestorableValue<ReportState> {
+  @override
+  ReportState createDefaultValue() => const ReportState();
+
+  @override
+  void didUpdateValue(ReportState? oldValue) {
+    AppLogger.i(
+        'value is updated Change Report state oldState is $oldValue\n new value is $value');
+    if (oldValue != null && oldValue != value) {
+      notifyListeners();
+      AppLogger.i('notify ReportStateListeners $value');
+    }
+  }
+
+  @override
+  ReportState fromPrimitives(Object? data) {
+    if (data != null) {
+      var map = const JsonDecoder().convert(data.toString());
+      return ReportState.fromJson(map);
+    }
+    return const ReportState();
+  }
+
+  @override
+  Object? toPrimitives() {
+    var save = const JsonEncoder().convert(value.toJson());
+    AppLogger.e('saving', save);
+    return save;
   }
 }
